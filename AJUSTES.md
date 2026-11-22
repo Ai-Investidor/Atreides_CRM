@@ -23,7 +23,9 @@ Lista do que precisa ser ajustado, revisado ou completado depois que todos os fl
 - [ ] **Alerta de perfil ao comprar ativo** (suitability): ao lançar ou planejar um ativo acima do perfil do cliente, pedir justificativa. Depende da classificação de risco dos ativos (ver Compliance).
 - [ ] **Alertas de desvio no painel:** levar as carteiras com desvio e as desatualizadas para o card "Atenção" do Painel (módulo 10).
 - [ ] **Teste real da carteira** com dados de um cliente (lançamentos, saldos, aporte, fotografia, importação).
-- [ ] **Alocação alvo.** Hoje é definida na própria carteira. Quando o Planejamento (doc 05) existir, ele vira a fonte do alvo e a carteira passa a só ler.
+- [x] **Alocação alvo** (22/11/2026): o Planejamento (doc 05) é a fonte do alvo; salvar o planejamento atualiza o alvo da carteira, que passa a só ler.
+- [ ] **Faixas de renda variável por perfil de investidor:** alerta e justificativa quando a alocação do planejamento passar do limite do perfil. Depende da política de suitability (ver Compliance).
+- [ ] **Planejamento do núcleo familiar** e **comparativo visual entre versões** do planejamento (doc 05).
 - [ ] **Transferência de cliente entre workspaces.** Construída e testada só em parte (não havia um segundo workspace). Testar quando um consultor entrar.
 - [ ] **Teste de ponta a ponta logado** de Clientes, Tarefas e Carteira (cadastro, registro de perfil, documentos, importação, conversão de lead).
 

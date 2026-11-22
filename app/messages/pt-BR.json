@@ -974,7 +974,8 @@
         "report_approved": "Relatório aprovado",
         "report_sent": "Relatório enviado ao cliente",
         "profile_set": "Perfil de investidor registrado: {perfil} ({corretora})",
-        "diagnosis_updated": "Diagnóstico atualizado (versão {versao})"
+        "diagnosis_updated": "Diagnóstico atualizado (versão {versao})",
+        "plan_updated": "Planejamento atualizado (versão {versao})"
       }
     },
     "documentos": {
@@ -1209,7 +1210,8 @@
       "soma": "Soma: {pct}",
       "removerAlvo": "Remover alvo",
       "cancelar": "Cancelar",
-      "salvar": "Salvar alvo"
+      "salvar": "Salvar alvo",
+      "alvoNoPlanejamento": "Alvo no planejamento"
     },
     "classes": {
       "cash": "Pós-fixado / Caixa",
@@ -1244,7 +1246,8 @@
       "alvoInvalido": "Percentual inválido.",
       "alvoSoma": "A alocação alvo precisa somar 100%.",
       "cotacao": "Não foi possível atualizar as cotações agora. Valem as últimas salvas.",
-      "importacaoGrande": "Máximo de 1.000 linhas por importação."
+      "importacaoGrande": "Máximo de 1.000 linhas por importação.",
+      "alvoDoPlanejamento": "O alvo vem do planejamento. Altere na aba Planejamento."
     },
     "posicoes": {
       "titulo": "Posições",
@@ -1791,5 +1794,145 @@
       "leitura": "Não foi possível ler o arquivo."
     },
     "fecharApresentacao": "Fechar apresentação"
+  },
+  "planejamento": {
+    "titulo": "Planejamento",
+    "descricao": "Metas e objetivos a partir das dores do diagnóstico, estratégia e proporção da carteira.",
+    "editarDica": "Escreva as metas a partir do diagnóstico (ao lado) e defina a proporção da carteira. Os números são simulações com as suas premissas.",
+    "escrever": "Escrever planejamento",
+    "editar": "Editar",
+    "apresentar": "Apresentar",
+    "baixarPdf": "Baixar PDF",
+    "historico": "Histórico",
+    "vazioTitulo": "Planejamento ainda não escrito",
+    "vazioDescricao": "Monte as metas a partir das dores e dos sonhos do diagnóstico e defina a proporção entre renda fixa e renda variável.",
+    "semDiagnostico": "Este cliente ainda não tem diagnóstico. O planejamento pode ser escrito, mas as metas partem das dores e dos sonhos registrados no diagnóstico.",
+    "semDiagnosticoCurto": "Sem diagnóstico registrado.",
+    "verDiagnostico": "Diagnóstico",
+    "semTexto": "Nada escrito ainda.",
+    "versaoAtual": "Versão {versao} · salva em {data} por {nome}",
+    "salvar": "Salvar",
+    "cancelar": "Cancelar",
+    "aporteMensal": "Aporte mensal",
+    "aporteDica": "Combinado com o cliente, em reais.",
+    "rentabilidade": "Rentabilidade simulada",
+    "rentabilidadeDica": "Média das premissas de cada classe, pela proporção.",
+    "taxaCarteira": "IPCA + {real} ao ano · {cdi} do CDI",
+    "taxaIndisponivel": {
+      "semAlocacao": "Defina a alocação",
+      "semReferencias": "Informe CDI e IPCA de referência",
+      "premissasFaltando": "Complete as premissas"
+    },
+    "proporcao": "Proporção",
+    "perfil": "Perfil de investidor",
+    "perfilDica": "Informado pela corretora. Use para calibrar a renda variável.",
+    "secaoPremissas": "Aporte e referências",
+    "cdiRef": "CDI de referência (% ao ano)",
+    "ipcaRef": "IPCA de referência (% ao ano)",
+    "refBcb": "Banco Central, últimos 12 meses: {valor}",
+    "refBcbIndisponivel": "Banco Central indisponível agora. Informe o valor.",
+    "aviso": "Simulação ilustrativa, com premissas do consultor. Rentabilidade não é garantida e investimentos podem ter perdas.",
+    "grupos": {
+      "rf": "Renda fixa",
+      "rv": "Renda variável",
+      "outros": "Outros",
+      "rfCurto": "RF",
+      "rvCurto": "RV",
+      "outrosCurto": "Outros"
+    },
+    "premissas": {
+      "tipo": "Premissa",
+      "valor": "Valor (%)",
+      "nenhuma": "Sem premissa",
+      "rotulo": {
+        "cdi_pct": "% do CDI",
+        "ipca_plus": "IPCA + x%",
+        "prefixed": "Prefixado"
+      },
+      "texto": {
+        "cdi_pct": "{valor} do CDI",
+        "ipca_plus": "IPCA + {valor}",
+        "prefixed": "pré {valor}"
+      }
+    },
+    "alocacao": {
+      "titulo": "Proporção da carteira",
+      "dica": "% de cada classe (soma 100%) e a premissa que você usa para ela. Vira o alvo da carteira do cliente.",
+      "classe": "Classe",
+      "percentual": "%",
+      "total": "Total {total}",
+      "nenhuma": "Nenhuma classe neste grupo."
+    },
+    "objetivos": {
+      "titulo": "Objetivos",
+      "dica": "Valores em reais de hoje. O aporte necessário usa a rentabilidade simulada da carteira.",
+      "nome": "Objetivo",
+      "valor": "Valor",
+      "prazo": "Prazo",
+      "guardado": "Já guardado",
+      "aporte": "Aporte necessário",
+      "porMes": "/mês",
+      "coberto": "Coberto pelo valor guardado",
+      "adicionar": "Adicionar objetivo",
+      "remover": "Remover objetivo",
+      "vazio": "Nenhum objetivo cadastrado.",
+      "nota": "Aporte mensal necessário até o prazo, em reais de hoje, na rentabilidade simulada.",
+      "prazoVencido": "Prazo vencido"
+    },
+    "aposentadoria": {
+      "titulo": "Aposentadoria",
+      "resultado": "Patrimônio simulado aos {idade} anos ({data}), em reais de hoje, aportando {aporte} por mês a partir de {inicial}.",
+      "fonteInicial": "Patrimônio inicial: última fotografia da carteira ({data}).",
+      "semFotografia": "Sem fotografia da carteira: a simulação parte de zero.",
+      "semIdade": "Informe a idade pretendida para se aposentar no Diagnóstico.",
+      "semNascimento": "Informe a data de nascimento na aba Dados do cliente.",
+      "semTaxa": "Complete a alocação e as premissas para simular.",
+      "idadePassou": "O cliente já tem {idade} anos ou mais."
+    },
+    "versoes": {
+      "titulo": "Versões anteriores",
+      "descricao": "Cada vez que o planejamento é salvo, a versão anterior fica guardada aqui.",
+      "versao": "Versão {versao}",
+      "salvaEm": "Salva em {data} por {nome}",
+      "ver": "Ver"
+    },
+    "erros": {
+      "textoLongo": "Texto muito longo (até 100 mil caracteres).",
+      "aporte": "Aporte: informe um valor em reais, igual ou maior que zero.",
+      "referencia": "CDI e IPCA de referência: entre 0% e 100% ao ano.",
+      "percentual": "Cada classe precisa ter entre 0% e 100%.",
+      "premissa": "Premissa fora da faixa: % do CDI entre 0 e 300; IPCA + x% e prefixado entre −20% e 100%.",
+      "premissaIncompleta": "Toda premissa escolhida precisa de valor.",
+      "soma100": "A proporção da carteira precisa somar 100%.",
+      "objetivoNome": "Todo objetivo precisa de nome (até 120 caracteres).",
+      "objetivoValor": "Valor do objetivo maior que zero.",
+      "objetivoPrazo": "Informe o prazo de cada objetivo.",
+      "objetivoGuardado": "Valor guardado igual ou maior que zero.",
+      "objetivosMax": "Até 30 objetivos.",
+      "encerrado": "Cliente encerrado: o planejamento não pode ser alterado.",
+      "sessao": "Sua sessão expirou. Entre de novo.",
+      "salvar": "Não foi possível salvar. Tente novamente.",
+      "permissao": "Você não tem permissão para esta ação.",
+      "naoEncontrado": "Não encontrado."
+    },
+    "pdf": {
+      "tituloDoc": "Planejamento · {nome}",
+      "capaSobre": "Planejamento",
+      "capaFrase": "Metas, estratégia e a proporção da carteira para chegar lá.",
+      "cabecalho": "Planejamento · {nome}",
+      "objetivos": "Objetivos",
+      "alocacao": "Proporção da carteira",
+      "aposentadoria": "Aposentadoria",
+      "aviso": "Simulação ilustrativa, com premissas do consultor. Rentabilidade não é garantida e investimentos podem ter perdas. Este documento não constitui oferta de compra ou venda de valores mobiliários.",
+      "colNome": "Objetivo",
+      "colValor": "Valor",
+      "colPrazo": "Prazo",
+      "colGuardado": "Já guardado",
+      "colAporte": "Aporte necessário",
+      "notaObjetivos": "Aporte mensal necessário até o prazo, em reais de hoje, na rentabilidade simulada da carteira.",
+      "objetivosSobre": "Metas",
+      "alocacaoSobre": "Estratégia",
+      "aposentadoriaSobre": "Longo prazo"
+    }
   }
 }

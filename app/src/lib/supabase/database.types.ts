@@ -24,6 +24,38 @@ export type Database = {
         Update: { price?: number; change_pct?: number | null; currency?: string; quoted_at?: string; source?: string; fetched_at?: string };
         Relationships: [{ foreignKeyName: "asset_quotes_asset_id_fkey"; columns: ["asset_id"]; isOneToOne: false; referencedRelation: "assets"; referencedColumns: ["id"] }];
       };
+      plans: {
+        Row: { cdi_ref: number | null; client_id: string; content_md: string; created_at: string; created_by: string; id: string; ipca_ref: number | null; monthly_contribution: number | null; updated_at: string; updated_by: string | null; version: number; workspace_id: string };
+        Insert: { cdi_ref?: number | null; client_id: string; content_md?: string; created_at?: string; created_by: string; id?: string; ipca_ref?: number | null; monthly_contribution?: number | null; updated_at?: string; updated_by?: string | null; version?: number; workspace_id: string };
+        Update: { cdi_ref?: number | null; client_id?: string; content_md?: string; created_at?: string; created_by?: string; id?: string; ipca_ref?: number | null; monthly_contribution?: number | null; updated_at?: string; updated_by?: string | null; version?: number; workspace_id?: string };
+        Relationships: [
+          { foreignKeyName: "plans_client_id_fkey"; columns: ["client_id"]; isOneToOne: true; referencedRelation: "clients"; referencedColumns: ["id"] },
+          { foreignKeyName: "plans_created_by_fkey"; columns: ["created_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
+          { foreignKeyName: "plans_updated_by_fkey"; columns: ["updated_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
+          { foreignKeyName: "plans_workspace_id_fkey"; columns: ["workspace_id"]; isOneToOne: false; referencedRelation: "workspaces"; referencedColumns: ["id"] },
+        ];
+      };
+      plan_allocations: {
+        Row: { asset_class: Database["public"]["Enums"]["asset_class"]; plan_id: string; premise_kind: Database["public"]["Enums"]["plan_premise"] | null; premise_value: number | null; target_pct: number };
+        Insert: { asset_class: Database["public"]["Enums"]["asset_class"]; plan_id: string; premise_kind?: Database["public"]["Enums"]["plan_premise"] | null; premise_value?: number | null; target_pct: number };
+        Update: { asset_class?: Database["public"]["Enums"]["asset_class"]; plan_id?: string; premise_kind?: Database["public"]["Enums"]["plan_premise"] | null; premise_value?: number | null; target_pct?: number };
+        Relationships: [{ foreignKeyName: "plan_allocations_plan_id_fkey"; columns: ["plan_id"]; isOneToOne: false; referencedRelation: "plans"; referencedColumns: ["id"] }];
+      };
+      plan_goals: {
+        Row: { id: string; name: string; plan_id: string; position: number; saved_value: number; target_date: string; target_value: number };
+        Insert: { id?: string; name: string; plan_id: string; position: number; saved_value?: number; target_date: string; target_value: number };
+        Update: { id?: string; name?: string; plan_id?: string; position?: number; saved_value?: number; target_date?: string; target_value?: number };
+        Relationships: [{ foreignKeyName: "plan_goals_plan_id_fkey"; columns: ["plan_id"]; isOneToOne: false; referencedRelation: "plans"; referencedColumns: ["id"] }];
+      };
+      plan_versions: {
+        Row: { id: string; plan_id: string; saved_at: string; saved_by: string | null; snapshot: Json; version: number };
+        Insert: { id?: string; plan_id: string; saved_at: string; saved_by?: string | null; snapshot: Json; version: number };
+        Update: { id?: string; plan_id?: string; saved_at?: string; saved_by?: string | null; snapshot?: Json; version?: number };
+        Relationships: [
+          { foreignKeyName: "plan_versions_plan_id_fkey"; columns: ["plan_id"]; isOneToOne: false; referencedRelation: "plans"; referencedColumns: ["id"] },
+          { foreignKeyName: "plan_versions_saved_by_fkey"; columns: ["saved_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
+        ];
+      };
       portfolio_targets: {
         Row: { client_id: string; asset_class: Database["public"]["Enums"]["asset_class"]; target_pct: number; updated_by: string | null; updated_at: string };
         Insert: { client_id: string; asset_class: Database["public"]["Enums"]["asset_class"]; target_pct: number; updated_by?: string | null; updated_at?: string };
@@ -342,6 +374,10 @@ export type Database = {
     };
     Views: { [_ in never]: never };
     Functions: {
+      plan_save: {
+        Args: { p_allocations: Json; p_cdi: number | null; p_client: string; p_content: string; p_contribution: number | null; p_goals: Json; p_ipca: number | null };
+        Returns: string;
+      };
       client_export_audit: { Args: { p_client: string }; Returns: undefined };
       client_transfer: { Args: { p_client: string; p_workspace: string }; Returns: undefined };
       contribution_execute: { Args: { p_contribution: string; p_date: string; p_institution?: string | null }; Returns: undefined };
@@ -355,7 +391,7 @@ export type Database = {
     Enums: {
       client_event_type:
         | "created" | "migrated" | "converted_from_lead" | "status_changed" | "transferred" | "data_updated" | "note" | "document_uploaded"
-        | "document_deleted" | "suitability" | "lgpd_consent" | "task_done" | "meeting_scheduled" | "process_started" | "process_completed" | "family_changed" | "portfolio_snapshot" | "contribution_executed" | "report_approved" | "report_sent" | "profile_set" | "diagnosis_updated";
+        | "document_deleted" | "suitability" | "lgpd_consent" | "task_done" | "meeting_scheduled" | "process_started" | "process_completed" | "family_changed" | "portfolio_snapshot" | "contribution_executed" | "report_approved" | "report_sent" | "profile_set" | "diagnosis_updated" | "plan_updated";
       client_status: "onboarding" | "active" | "paused" | "closed";
       asset_class: "cash" | "inflation" | "prefixed" | "multimarket" | "br_equities" | "reits" | "international" | "alternatives" | "pension";
       asset_kind: "listed" | "manual";
@@ -367,6 +403,7 @@ export type Database = {
       document_category: "contract" | "id_document" | "proof_of_address" | "lgpd_consent" | "income_proof" | "other" | "broker_profile";
       family_role: "holder" | "spouse" | "dependent";
       investor_profile: "conservative" | "moderate" | "aggressive" | "very_aggressive";
+      plan_premise: "cdi_pct" | "ipca_plus" | "prefixed";
       lead_contact_type: "call" | "whatsapp" | "meeting" | "email" | "note" | "stage_change" | "created" | "meeting_scheduled" | "task_done";
       lead_lost_reason: "price" | "no_fit" | "no_response" | "competitor" | "other";
       lead_source: "instagram" | "active_prospecting" | "referral" | "ai_invest" | "other";

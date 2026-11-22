@@ -9,7 +9,7 @@ type AtivoBase = Pick<Ativo, "id" | "ticker" | "name" | "asset_class" | "kind">;
 /** Tudo o que o dashboard da carteira de um cliente precisa. */
 export async function carteiraDoCliente(clienteId: string) {
   const supabase = await createClient();
-  const [cli, lanc, saldos, fotos, alvos, aportes] = await Promise.all([
+  const [cli, lanc, saldos, fotos, alvos, aportes, diag, plano] = await Promise.all([
     supabase.from("clients").select("id, full_name, workspace_id, portfolio_frequency, deviation_limit, monthly_income, contract_start_on, status").eq("id", clienteId).maybeSingle(),
     supabase
       .from("portfolio_transactions")
@@ -26,6 +26,8 @@ export async function carteiraDoCliente(clienteId: string) {
       .eq("client_id", clienteId)
       .order("period_start", { ascending: false })
       .limit(24),
+    supabase.from("diagnoses").select("monthly_expense").eq("client_id", clienteId).maybeSingle(),
+    supabase.from("plans").select("id").eq("client_id", clienteId).maybeSingle(),
   ]);
   if (!cli.data) return null;
 
@@ -62,6 +64,10 @@ export async function carteiraDoCliente(clienteId: string) {
     saldos: saldos.data ?? [],
     evolucao,
     marcoZero: evolucao[0] ?? null,
+    /** Com planejamento salvo, o alvo vem dele e não é editado na carteira (Documentação/05). */
+    alvoDoPlanejamento: !!plano.data,
+    /** Despesa mensal registrada no Diagnóstico (Documentação/14). */
+    despesaMensal: diag.data?.monthly_expense === null || diag.data?.monthly_expense === undefined ? null : Number(diag.data.monthly_expense),
     ultimaFoto: ultima,
     variacao: variacaoDesde(resumo.total, ultima, lanc.data ?? []),
     desatualizada: desatualizada(ultima?.ref_date ?? null, cli.data.portfolio_frequency, hoje),

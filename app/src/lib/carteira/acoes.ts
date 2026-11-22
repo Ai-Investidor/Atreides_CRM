@@ -33,6 +33,7 @@ function mensagemBanco(e: { hint?: string; code?: string } | null) {
     contribution_empty: "aporteVazio",
     contribution_client: "salvar",
     contribution_executed: "aporteTravado",
+    target_from_plan: "alvoDoPlanejamento",
   };
   if (e?.hint && mapa[e.hint]) return mapa[e.hint];
   if (e?.code === "42501") return "permissao";

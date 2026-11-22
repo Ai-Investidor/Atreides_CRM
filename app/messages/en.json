@@ -974,7 +974,8 @@
         "report_approved": "Report approved",
         "report_sent": "Report sent to client",
         "profile_set": "Investor profile recorded: {perfil} ({corretora})",
-        "diagnosis_updated": "Assessment updated (version {versao})"
+        "diagnosis_updated": "Assessment updated (version {versao})",
+        "plan_updated": "Plan updated (version {versao})"
       }
     },
     "documentos": {
@@ -1209,7 +1210,8 @@
       "soma": "Total: {pct}",
       "removerAlvo": "Remove target",
       "cancelar": "Cancel",
-      "salvar": "Save target"
+      "salvar": "Save target",
+      "alvoNoPlanejamento": "Target in the plan"
     },
     "classes": {
       "cash": "Floating rate / Cash",
@@ -1244,7 +1246,8 @@
       "alvoInvalido": "Invalid percentage.",
       "alvoSoma": "The target allocation must add up to 100%.",
       "cotacao": "Couldn't refresh quotes now. The last saved ones apply.",
-      "importacaoGrande": "Up to 1,000 rows per import."
+      "importacaoGrande": "Up to 1,000 rows per import.",
+      "alvoDoPlanejamento": "The target comes from the plan. Change it in the Plan tab."
     },
     "posicoes": {
       "titulo": "Positions",
@@ -1791,5 +1794,145 @@
       "leitura": "Could not read the file."
     },
     "fecharApresentacao": "Close presentation"
+  },
+  "planejamento": {
+    "titulo": "Plan",
+    "descricao": "Goals built from the assessment pains, strategy and portfolio mix.",
+    "editarDica": "Write the goals from the assessment (beside) and set the portfolio mix. Numbers are simulations with your assumptions.",
+    "escrever": "Write plan",
+    "editar": "Edit",
+    "apresentar": "Present",
+    "baixarPdf": "Download PDF",
+    "historico": "History",
+    "vazioTitulo": "Plan not written yet",
+    "vazioDescricao": "Build the goals from the assessment pains and dreams and set the mix between fixed income and equities.",
+    "semDiagnostico": "This client has no assessment yet. The plan can be written, but goals come from the pains and dreams recorded in the assessment.",
+    "semDiagnosticoCurto": "No assessment recorded.",
+    "verDiagnostico": "Assessment",
+    "semTexto": "Nothing written yet.",
+    "versaoAtual": "Version {versao} · saved on {data} by {nome}",
+    "salvar": "Save",
+    "cancelar": "Cancel",
+    "aporteMensal": "Monthly contribution",
+    "aporteDica": "Agreed with the client, in BRL.",
+    "rentabilidade": "Simulated return",
+    "rentabilidadeDica": "Average of each class assumption, weighted by the mix.",
+    "taxaCarteira": "IPCA + {real} per year · {cdi} of CDI",
+    "taxaIndisponivel": {
+      "semAlocacao": "Set the allocation",
+      "semReferencias": "Enter reference CDI and IPCA",
+      "premissasFaltando": "Complete the assumptions"
+    },
+    "proporcao": "Mix",
+    "perfil": "Investor profile",
+    "perfilDica": "Provided by the broker. Use it to calibrate equities.",
+    "secaoPremissas": "Contribution and references",
+    "cdiRef": "Reference CDI (% per year)",
+    "ipcaRef": "Reference IPCA (% per year)",
+    "refBcb": "Central Bank, last 12 months: {valor}",
+    "refBcbIndisponivel": "Central Bank unavailable now. Enter the value.",
+    "aviso": "Illustrative simulation with the advisor's assumptions. Returns are not guaranteed and investments may lose value.",
+    "grupos": {
+      "rf": "Fixed income",
+      "rv": "Equities",
+      "outros": "Other",
+      "rfCurto": "FI",
+      "rvCurto": "EQ",
+      "outrosCurto": "Other"
+    },
+    "premissas": {
+      "tipo": "Assumption",
+      "valor": "Value (%)",
+      "nenhuma": "No assumption",
+      "rotulo": {
+        "cdi_pct": "% of CDI",
+        "ipca_plus": "IPCA + x%",
+        "prefixed": "Fixed rate"
+      },
+      "texto": {
+        "cdi_pct": "{valor} of CDI",
+        "ipca_plus": "IPCA + {valor}",
+        "prefixed": "fixed {valor}"
+      }
+    },
+    "alocacao": {
+      "titulo": "Portfolio mix",
+      "dica": "% of each class (sums to 100%) and the assumption you use for it. Becomes the client's portfolio target.",
+      "classe": "Class",
+      "percentual": "%",
+      "total": "Total {total}",
+      "nenhuma": "No class in this group."
+    },
+    "objetivos": {
+      "titulo": "Goals",
+      "dica": "Values in today's money. The required contribution uses the simulated portfolio return.",
+      "nome": "Goal",
+      "valor": "Amount",
+      "prazo": "Deadline",
+      "guardado": "Already saved",
+      "aporte": "Required contribution",
+      "porMes": "/month",
+      "coberto": "Covered by savings",
+      "adicionar": "Add goal",
+      "remover": "Remove goal",
+      "vazio": "No goals yet.",
+      "nota": "Monthly contribution required until the deadline, in today's money, at the simulated return.",
+      "prazoVencido": "Deadline passed"
+    },
+    "aposentadoria": {
+      "titulo": "Retirement",
+      "resultado": "Simulated wealth at {idade} ({data}), in today's money, contributing {aporte} per month from {inicial}.",
+      "fonteInicial": "Starting wealth: latest portfolio snapshot ({data}).",
+      "semFotografia": "No portfolio snapshot: the simulation starts from zero.",
+      "semIdade": "Enter the intended retirement age in the Assessment.",
+      "semNascimento": "Enter the birth date in the client's Data tab.",
+      "semTaxa": "Complete the allocation and assumptions to simulate.",
+      "idadePassou": "The client is already {idade} or older."
+    },
+    "versoes": {
+      "titulo": "Previous versions",
+      "descricao": "Each time the plan is saved, the previous version is kept here.",
+      "versao": "Version {versao}",
+      "salvaEm": "Saved on {data} by {nome}",
+      "ver": "View"
+    },
+    "erros": {
+      "textoLongo": "Text too long (up to 100,000 characters).",
+      "aporte": "Contribution: enter an amount in BRL, zero or more.",
+      "referencia": "Reference CDI and IPCA: between 0% and 100% per year.",
+      "percentual": "Each class must be between 0% and 100%.",
+      "premissa": "Assumption out of range: % of CDI between 0 and 300; IPCA + x% and fixed rate between −20% and 100%.",
+      "premissaIncompleta": "Every chosen assumption needs a value.",
+      "soma100": "The portfolio mix must sum to 100%.",
+      "objetivoNome": "Every goal needs a name (up to 120 characters).",
+      "objetivoValor": "Goal amount must be greater than zero.",
+      "objetivoPrazo": "Enter each goal's deadline.",
+      "objetivoGuardado": "Saved amount must be zero or more.",
+      "objetivosMax": "Up to 30 goals.",
+      "encerrado": "Closed client: the plan cannot be changed.",
+      "sessao": "Your session expired. Sign in again.",
+      "salvar": "Could not save. Try again.",
+      "permissao": "You do not have permission for this action.",
+      "naoEncontrado": "Not found."
+    },
+    "pdf": {
+      "tituloDoc": "Plan · {nome}",
+      "capaSobre": "Plan",
+      "capaFrase": "Goals, strategy and the portfolio mix to get there.",
+      "cabecalho": "Plan · {nome}",
+      "objetivos": "Goals",
+      "alocacao": "Portfolio mix",
+      "aposentadoria": "Retirement",
+      "aviso": "Illustrative simulation with the advisor's assumptions. Returns are not guaranteed and investments may lose value. This document is not an offer to buy or sell securities.",
+      "colNome": "Goal",
+      "colValor": "Amount",
+      "colPrazo": "Deadline",
+      "colGuardado": "Already saved",
+      "colAporte": "Required contribution",
+      "notaObjetivos": "Monthly contribution required until the deadline, in today's money, at the simulated portfolio return.",
+      "objetivosSobre": "Goals",
+      "alocacaoSobre": "Strategy",
+      "aposentadoriaSobre": "Long term"
+    }
   }
 }

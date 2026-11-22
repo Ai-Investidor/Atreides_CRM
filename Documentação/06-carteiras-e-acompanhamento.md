@@ -138,3 +138,5 @@ Nenhuma que bloqueie o MVP. Ficam no [AJUSTES.md](../AJUSTES.md): ordem das corr
 - 21/11/2026: cotações via Yahoo Finance no início.
 - 21/11/2026: carteira por lançamentos (estilo Investidor10) + plano de aportes do período + fotografias; card Marco zero (sem formulário próprio); alvo definido na carteira até o Planejamento existir; busca e cotação pelo Yahoo Finance; dashboard completo em tela cheia.
 - 21/11/2026: implementado (banco, provedor de mercado, dashboard da carteira, plano de aportes, fotografias, importação, visão geral).
+- 22/11/2026: o card Marco zero passa a mostrar a despesa mensal registrada no Diagnóstico (14).
+- 22/11/2026: a alocação alvo passa a vir do Planejamento (05); com planejamento salvo, o alvo não é editado na carteira.

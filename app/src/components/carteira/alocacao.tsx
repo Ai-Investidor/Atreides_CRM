@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Pencil, TriangleAlert } from "lucide-react";
+import { Compass, Pencil, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert } from "@/components/ui/feedback";
@@ -14,10 +15,10 @@ import { CLASSES, type ClasseAtivo, type Resumo } from "@/lib/carteira/regras";
 import { formatarMoeda, formatarPct } from "@/lib/formatos";
 import { cn } from "@/lib/utils";
 
-type Props = { clienteId: string; resumo: Resumo; alvos: Partial<Record<ClasseAtivo, number>>; limite: number; somenteLeitura?: boolean };
+type Props = { clienteId: string; resumo: Resumo; alvos: Partial<Record<ClasseAtivo, number>>; limite: number; somenteLeitura?: boolean; alvoDoPlanejamento?: boolean };
 
 /** Alocação atual × alvo por classe: barra da atual e marcador do alvo; desvio com ícone e texto. */
-export function Alocacao({ clienteId, resumo, alvos, limite, somenteLeitura }: Props) {
+export function Alocacao({ clienteId, resumo, alvos, limite, somenteLeitura, alvoDoPlanejamento }: Props) {
   const t = useTranslations("carteira.alocacao");
   const tc = useTranslations("carteira.classes");
   const locale = useLocale();
@@ -33,7 +34,14 @@ export function Alocacao({ clienteId, resumo, alvos, limite, somenteLeitura }: P
           <CardTitle>{t("titulo")}</CardTitle>
           <CardDescription>{temAlvo ? t("descricao", { limite: formatarPct(limite, locale, { casas: 0 }).replace("%", "") }) : t("semAlvo")}</CardDescription>
         </div>
-        {!somenteLeitura ? (
+        {alvoDoPlanejamento ? (
+          <Button variant="ghost" size="sm" asChild>
+            <Link href={`/clientes/${clienteId}?aba=planejamento`}>
+              <Compass />
+              {t("alvoNoPlanejamento")}
+            </Link>
+          </Button>
+        ) : !somenteLeitura ? (
           <Button variant="ghost" size="sm" onClick={() => setEditando(true)}>
             <Pencil />
             {temAlvo ? t("editarAlvo") : t("definirAlvo")}

@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Registrar, de forma estruturada, o planejamento de cada cliente (ou núcleo familiar): aonde ele quer chegar e qual a estratégia, partindo do diagnóstico da vida financeira dele.
+Transformar o diagnóstico em plano: a partir das **dores** e dos **sonhos** do cliente ([14](14-diagnostico-financeiro.md)), montar as **metas e objetivos**, a **estratégia** e a **proporção da carteira** entre renda fixa e renda variável, adequada ao perfil de investidor.
 
 ## Quem usa
 
@@ -10,95 +10,118 @@ Consultores. Admin acompanha.
 
 ## Como funciona hoje
 
-Hoje só o Erick tem clientes. Ele monta as carteiras dos clientes no **Investidor10** (ativos, quantidade e valor) e todo mês envia um **PDF com a identidade visual da consultoria dele** detalhando o planejamento de investimento do mês. O Atreides substitui esse processo: carteira montada aqui ([06](06-carteiras-e-acompanhamento.md) e [13](13-pesquisa-de-ativos.md)), planejamento aqui, e o PDF mensal sai do sistema ([08](08-relatorios.md)).
+Hoje só o Erick tem clientes. Ele monta as carteiras dos clientes no **Investidor10** e todo mês envia um **PDF** com o planejamento de investimento do mês. O Atreides substitui esse processo: planejamento aqui, carteira aqui ([06](06-carteiras-e-acompanhamento.md)) e PDF saindo do sistema.
 
 ## Lugar no atendimento
 
 ```
-14 Diagnóstico financeiro  →  05 Planejamento  →  06 Carteira  →  08 Relatórios
-(gastos, ganhos, dívidas,      (objetivos,         (ativos e        (acompanhamento
- capacidade de investir)        estratégia)          posições)         mensal)
+14 Diagnóstico (dores, sonhos)  →  05 Planejamento (metas, estratégia, alocação)  →  06 Carteira  →  08 Relatórios
 ```
 
-O planejamento **parte do diagnóstico**: só começa depois que o diagnóstico financeiro do cliente está concluído.
+## Princípio: sem promessa de rentabilidade
+
+O sistema **não traz rentabilidade pronta** e não promete retorno. A lógica da consultoria é que a carteira tem partes com referências diferentes (algumas acima da inflação, outras acima do CDI) e partes de renda variável, com mais risco e potencial maior. **O que muda o resultado é a proporção** entre renda fixa e renda variável, adequada ao perfil de investidor.
+
+Por isso:
+- a premissa de cada classe é escrita pelo consultor, no formato do mercado: **% do CDI**, **IPCA + x%** ou **prefixado x%**;
+- o CDI e o IPCA de referência vêm do **Banco Central** (acumulados dos últimos 12 meses) e podem ser ajustados pelo consultor;
+- o sistema combina as premissas pela proporção e mostra a **rentabilidade simulada da carteira** (ex.: "IPCA + 4,1% ao ano · 108% do CDI");
+- todo número calculado é chamado de **simulação**, nunca de "projeção" ou "retorno esperado", e vem com o aviso: "Simulação ilustrativa, com premissas do consultor. Rentabilidade não é garantida e investimentos podem ter perdas.";
+- as contas são feitas **em reais de hoje** (acima da inflação), para o cliente entender o poder de compra.
 
 ## Escopo
 
 **MVP**
-- Objetivos do cliente com valor, prazo e prioridade
-- Plano de ação financeiro (vindo do diagnóstico: cortes de gastos, quitação de dívidas, reserva)
-- Alocação alvo por classe de ativo
-- Simulação de cada objetivo com premissas informadas pelo consultor
-- Planejamento individual ou do núcleo familiar
-- Versões do planejamento (cada revisão gera uma nova versão)
+- Texto em markdown, como o diagnóstico, que já começa com o modelo de seções; o diagnóstico fica visível ao lado enquanto o consultor escreve
+- **Objetivos**: nome, valor (em reais de hoje), prazo e quanto já está guardado. Para cada um, o sistema mostra o **aporte mensal necessário** na rentabilidade simulada da carteira
+- **Aporte mensal** combinado com o cliente e **simulação da aposentadoria**: patrimônio na idade pretendida (do diagnóstico), partindo da última fotografia da carteira
+- **Alocação alvo por classe** (as 9 classes da carteira), com os totais de **renda fixa**, **renda variável** e **outros**, a premissa de cada classe e o perfil de investidor do cliente ao lado
+- A alocação do planejamento **vira o alvo da carteira** do cliente
+- Histórico: salvar guarda a versão anterior
+- Modo apresentação e **PDF com a identidade da Atreides** (texto, objetivos, alocação, simulação e aviso)
+- Tarefa "Revisar planejamento" 6 meses depois do último salvamento
 
-**Fase 2**
-- PDF do planejamento com a identidade da marca
-- Simulação em cenários (conservador, base, favorável) lado a lado
-- Planejamento sucessório e de aposentadoria detalhados
+**Depois** (ver [AJUSTES.md](../AJUSTES.md))
+- Faixas de renda variável por perfil de investidor com alerta e justificativa (depende da política de suitability)
+- Planejamento do núcleo familiar
+- Comparativo visual entre versões
 
-## Estrutura de um planejamento
+## Modelo de seções
 
-| Bloco | Conteúdo |
-|---|---|
-| **1. Ponto de partida** | Resumo do diagnóstico ([14](14-diagnostico-financeiro.md)): sobra mensal, patrimônio, dívidas, reserva atual × ideal, capacidade de investimento |
-| **2. Objetivos** | Lista: nome (ex.: "Aposentadoria", "Entrada do apartamento"), valor-alvo, prazo, prioridade, quanto já está guardado |
-| **3. Plano de ação financeiro** | Metas de comportamento: reduzir gastos, quitar dívidas, montar reserva, aumentar o aporte |
-| **4. Estratégia de investimento** | Alocação alvo por classe de ativo, aporte mensal recomendado, observações do consultor |
-| **5. Simulação** | Para cada objetivo: em quanto tempo ele seria atingido, **nas premissas informadas pelo consultor** |
-| **6. Recomendações** | Ações combinadas com o cliente, com prazo |
+```markdown
+## Metas e objetivos
+## Estratégia
+## Plano de ação
+## Recomendações
+```
 
-## Fluxo: criar o primeiro planejamento
+## Fluxo
 
-1. Com o diagnóstico concluído, a tarefa "Montar planejamento" leva à aba Planejamento do cliente.
-2. O sistema traz o ponto de partida do diagnóstico, sem redigitar nada.
-3. Consultor cadastra os objetivos e o plano de ação financeiro.
-4. Define a alocação alvo. O sistema sugere um ponto de partida conforme o perfil de investidor, e o consultor ajusta.
-5. Para simular, o consultor informa a premissa de cada caso (ex.: taxa real anual estimada). O sistema mostra o resultado como **simulação**.
-6. Consultor registra as recomendações e **publica** o planejamento (versão 1).
+1. A tarefa "Montar planejamento" do onboarding leva à aba **Planejamento** do cliente. Sem diagnóstico, a tela avisa, mas não bloqueia (ex.: cliente migrado com planejamento já existente).
+2. **Escrever planejamento** abre o editor, com o diagnóstico ao lado (botão "Ver diagnóstico") para consultar as dores e os sonhos.
+3. O consultor escreve as metas, a estratégia, o plano de ação e as recomendações (ou sobe um `.md`/`.txt`).
+4. Cadastra os objetivos (nome, valor, prazo, já guardado).
+5. Define a alocação: o % de cada classe (precisa somar 100%) e a premissa de cada classe com %. Confere os totais RF × RV ao lado do perfil de investidor.
+6. Informa o aporte mensal. Confere o CDI e o IPCA de referência.
+7. O sistema mostra a rentabilidade simulada da carteira, o aporte necessário de cada objetivo e o patrimônio simulado na aposentadoria.
+8. **Salvar**: a versão anterior vai para o histórico, o alvo da carteira é atualizado, a etapa "Montar planejamento" se conclui e a revisão fica agendada para daqui a 6 meses.
+9. **Apresentar** e **Baixar PDF** como no diagnóstico.
 
-## Fluxo: revisão
+## Cálculos (simulação)
 
-1. A cada **6 meses**, o sistema cria a tarefa e sugere uma reunião de revisão ([07](07-reunioes-e-agenda.md)).
-2. Consultor abre o planejamento, que é copiado para uma nova versão em rascunho.
-3. Atualiza o que mudou e publica a versão seguinte. A anterior continua consultável.
-4. O sistema mostra o comparativo entre as versões (patrimônio, objetivos atingidos, metas do plano de ação, mudanças na alocação).
+- Taxa nominal de cada classe: **% do CDI** = CDI × %; **IPCA + x%** = (1 + IPCA) × (1 + x) − 1; **prefixado x%** = x.
+- Taxa da carteira = soma de (proporção × taxa nominal) das classes com %. Todas as classes com % precisam ter premissa para a simulação aparecer.
+- Taxa real (acima da inflação) = (1 + taxa da carteira) / (1 + IPCA) − 1. Também mostrada como % do CDI.
+- Mensal: (1 + taxa real)^(1/12) − 1.
+- **Aporte necessário** de um objetivo: valor que, aplicado todo mês até o prazo, somado ao que já está guardado, chega ao valor do objetivo. Se o já guardado basta, mostra "coberto pelo valor guardado".
+- **Aposentadoria:** patrimônio da última fotografia da carteira + aporte mensal, até a idade pretendida (data de nascimento da ficha + idade do diagnóstico). Sem data de nascimento ou idade, a tela diz o que falta.
 
 ## Regras de negócio
 
-- Só um planejamento **vigente** por cliente ou núcleo familiar. Os anteriores ficam no histórico.
-- Planejamento familiar: renda, gastos e objetivos do núcleo somados; cada membro mantém o próprio perfil de investidor, e a alocação de cada carteira respeita o perfil do dono dela.
-- A alocação alvo precisa somar **100%**.
-- A alocação alvo precisa ser compatível com o perfil do cliente. Se o consultor colocar mais risco que o perfil permite, o sistema **avisa e pede justificativa** (registro para suitability).
-- **O sistema não tem premissa de rentabilidade padrão.** Mercado financeiro é volátil, e prometer rentabilidade é antiético. Por isso:
-  - toda simulação usa uma premissa digitada pelo consultor naquele planejamento, e ela aparece junto do resultado;
-  - o resultado é sempre chamado de **simulação**, nunca de "projeção" ou "retorno esperado";
-  - o aviso "Simulação ilustrativa. Rentabilidade não é garantida e investimentos podem ter perdas." aparece na tela e em qualquer documento gerado.
+- Um planejamento por cliente.
+- Alocação: soma de 100% (tolerância de 0,01 p.p.); cada % entre 0 e 100.
+- Premissas: % do CDI entre 0 e 300; IPCA + x% e prefixado entre −20% e 100% ao ano. CDI e IPCA de referência entre 0% e 100% ao ano.
+- Salvar o planejamento substitui o alvo da carteira pelas classes com % (classes sem % saem do alvo). Enquanto houver planejamento com alocação, o alvo não é editado na carteira, só no planejamento.
+- Cada salvamento guarda a versão anterior completa (texto, objetivos, alocação, premissas, aporte e referências), com data e autor.
+- O PDF e o modo apresentação nunca mostram o perfil de investidor (regra de [03](03-clientes.md)); a tela do consultor mostra.
+- Dados sensíveis: mesmas regras de acesso e LGPD do cliente. Entra na exportação LGPD e acompanha o cliente na transferência.
 
 ## Dados
 
-- `planejamentos`: id, cliente_id ou nucleo_familiar_id, diagnostico_id, versao, status (rascunho | vigente | arquivado), aporte_mensal, justificativa_perfil, observacoes, publicado_em, publicado_por
-- `planejamento_objetivos`: id, planejamento_id, nome, valor_alvo, prazo, prioridade, valor_atual, premissa_taxa_real
-- `planejamento_alocacao`: id, planejamento_id, classe_ativo, percentual
-- `planejamento_acoes`: id, planejamento_id, tipo (gasto | divida | reserva | renda | aporte), descricao, meta, prazo, status
-- `planejamento_recomendacoes`: id, planejamento_id, descricao, prazo, concluida
+- `plans`: id, workspace_id, client_id, content_md, monthly_contribution, cdi_ref, ipca_ref, version, created_by, updated_by, created_at, updated_at
+- `plan_allocations`: plan_id, asset_class, target_pct, premise_kind (cdi_pct | ipca_plus | prefixed), premise_value
+- `plan_goals`: id, plan_id, position, name, target_value, target_date, saved_value
+- `plan_versions`: id, plan_id, version, snapshot (jsonb com tudo), saved_by, saved_at
+
+## Implementação (22/11/2026)
+
+- **Banco:** migration `app/supabase/migrations/20261122050000_planejamento.sql`: `plans`, `plan_allocations`, `plan_goals`, `plan_versions`; salvar só pela função `public.plan_save` (valida 100% e premissas, guarda a versão anterior, troca objetivos e alocação, atualiza o alvo da carteira, gera o evento "Planejamento atualizado", conclui a etapa "plan" e fecha a tarefa de revisão); gatilho que impede editar o alvo da carteira quando há planejamento; rotina diária (pg_cron) da tarefa "Revisar planejamento"; transferência de workspace inclui o planejamento.
+- **Cálculos:** `src/lib/planejamento/regras.ts` (taxa por premissa, taxa da carteira, totais RF × RV × outros, aporte necessário, patrimônio futuro), conferidos com 12 casos de teste (inclusive ida e volta aporte × patrimônio).
+- **Telas:** aba Planejamento do cliente (`src/components/planejamento/card-planejamento.tsx`): leitura (resumo, aviso, texto, objetivos, proporção, aposentadoria), edição (editor com o diagnóstico ao lado, aporte, CDI/IPCA com o valor do Banco Central, alocação das 9 classes com premissa, objetivos com aporte ao vivo), apresentação e histórico. A carteira mostra "Alvo no planejamento" no lugar de editar o alvo.
+- **PDF:** `src/lib/planejamento/pdf.tsx` e rota `/api/planejamento/[id]/pdf`, com a identidade compartilhada (`src/lib/pdf/marca.tsx`, `src/lib/pdf/markdown.tsx`).
+- **Componentes compartilhados com o diagnóstico:** `src/components/documento/` (markdown, editor, apresentação).
+- **Pendente:** aplicar a migration (o filtro de segurança recusou a aplicação automática) e testar logado.
 
 ## Critérios de aceite
 
-- [ ] Planejamento só começa com diagnóstico concluído e traz os números dele sem redigitação
-- [ ] Planejamento individual ou do núcleo familiar
-- [ ] Alocação não salva se não somar 100%
-- [ ] Alerta quando a alocação é incompatível com o perfil, com justificativa obrigatória
-- [ ] Simulação só roda com premissa informada pelo consultor, sempre com o aviso
-- [ ] Revisão a cada 6 meses gera nova versão sem perder a anterior
-- [ ] Comparativo entre versões funciona
+- [x] Editor de markdown com modelo de seções, diagnóstico visível ao lado e envio de `.md`/`.txt`
+- [x] Objetivos com aporte mensal necessário na rentabilidade simulada
+- [x] Alocação por classe somando 100%, com totais RF × RV × outros, premissas e perfil ao lado
+- [x] Rentabilidade simulada da carteira a partir das premissas e do CDI/IPCA do Banco Central, sempre com o aviso
+- [x] Simulação da aposentadoria
+- [ ] Alocação do planejamento vira o alvo da carteira
+- [x] Histórico de versões, modo apresentação e PDF
+- [ ] Tarefa de revisão 6 meses depois
 
 ## Perguntas em aberto
 
-1. PDF mensal do Erick como referência para o relatório ([08](08-relatorios.md)): Gabriel vai pedir a ele.
+Nenhuma no momento. (O PDF mensal do Erick segue como referência futura para os relatórios, doc 08.)
 
 ## Histórico de decisões
 
 - 21/11/2026: documento criado.
 - 21/11/2026: revisão a cada 6 meses; planejamento pode ser familiar; sem premissa de rentabilidade padrão (simulação só com premissa do consultor e aviso obrigatório); diagnóstico vira fluxo próprio ([14](14-diagnostico-financeiro.md)); pesquisa de ativos vira fluxo próprio ([13](13-pesquisa-de-ativos.md)); referência atual: carteiras no Investidor10 + PDF mensal do Erick.
 - 21/11/2026: Gabriel vai pedir ao Erick o PDF mensal como referência.
+- 22/11/2026: o diagnóstico (14) passou a ser um texto em markdown com despesa mensal e idade de aposentadoria; o ponto de partida do planejamento usa esses dados.
+- 22/11/2026: redefinido no fluxo do diagnóstico: texto em markdown (metas, estratégia, plano de ação, recomendações) com o diagnóstico ao lado; objetivos com aporte necessário; alocação por classe com totais RF × RV; premissa por classe (% do CDI, IPCA + x%, prefixado) com CDI e IPCA do Banco Central, combinadas pela proporção (sem rentabilidade pronta nem promessa); simulação da aposentadoria; alocação vira o alvo da carteira; histórico, apresentação, PDF e revisão em 6 meses. Diagnóstico deixa de bloquear o planejamento (só avisa). Planejamento familiar, faixas por perfil e comparativo entre versões ficam para depois.
+- 22/11/2026: implementado (código, telas, PDF e cálculos); falta aplicar a migration no banco.
