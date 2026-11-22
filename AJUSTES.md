@@ -67,8 +67,9 @@ Lista do que precisa ser ajustado, revisado ou completado depois que todos os fl
 ## Infraestrutura
 
 - [ ] **Plano pago e backup do Supabase** antes de entrar dados reais de clientes (hoje é o plano gratuito).
-- [ ] **Deploy na Vercel** (iniciado em 22/11/2026, subdomínio `.vercel.app`, plano Hobby). Falta:
+- [ ] **Deploy na Vercel** (no ar em 22/11/2026: https://atreides-crm.vercel.app, plano Hobby). Falta:
   - **assinar o plano Pro da Vercel (US$ 20/mês) antes do uso real**: o Hobby é só para uso pessoal e não comercial;
+  - publicar sozinho a cada push: instalar o app da Vercel na organização `Ai-Investidor` do GitHub e definir Root Directory = `app` (hoje se publica pelo CLI);
   - domínio próprio (ex.: crm.atreides.com.br);
   - ambiente de produção separado do de desenvolvimento (hoje os dois usam o mesmo projeto Supabase).
 - [x] **Commit e repositório** (22/11/2026): código no GitHub privado `Ai-Investidor/Atreides_CRM`, branch `main`.

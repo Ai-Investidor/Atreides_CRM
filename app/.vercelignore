@@ -1,0 +1,6 @@
+# Nunca enviar segredos nem artefatos locais no deploy pelo CLI
+.env*
+!.env.example
+.next
+node_modules
+.vercel

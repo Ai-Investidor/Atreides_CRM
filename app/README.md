@@ -35,9 +35,10 @@ Com o `npm run dev` rodando, `ngrok http 3000` publica o sistema num endereço `
 
 ## Deploy (Vercel)
 
-O repositório do GitHub está ligado à Vercel: cada push na `main` publica sozinho.
+Produção: **https://atreides-crm.vercel.app** (projeto `atreides-crm` na Vercel).
 
-- **Root Directory:** `app` (o repositório tem o workspace inteiro; o sistema fica em `app/`).
+- **Publicar:** `npx vercel deploy --prod` dentro de `app/` (o `.vercelignore` impede o envio do `.env.local`).
+- **Publicar sozinho a cada push (pendente):** instalar o app da Vercel na organização `Ai-Investidor` do GitHub, rodar `npx vercel git connect` e definir **Root Directory = `app`** no projeto (o repositório tem o workspace inteiro; o sistema fica em `app/`).
 - **Variáveis de ambiente** (Settings › Environment Variables, ambiente Production): as mesmas do `.env.local`, ou seja, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_TOKEN_KEY` (a mesma do desenvolvimento, senão as agendas conectadas param), `BRAPI_TOKEN`, `BOLSAI_API_KEY` e `DADOSB3_API_KEY` (opcional).
 - **Supabase › Authentication › URL Configuration:** Site URL = endereço da Vercel; em Redirect URLs, `https://ENDERECO-DA-VERCEL/**`. Sem isso o login com Google volta para o localhost.
 - O Google não precisa de mudança: o retorno do login passa pelo Supabase.
