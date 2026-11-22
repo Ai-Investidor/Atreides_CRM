@@ -255,6 +255,27 @@ Pontos de quebra: `sm` 640px · `md` 768px · `lg` 1024px · `xl` 1280px.
 - **Selo dracma:** marca de documento oficial nos PDFs (relatórios, planejamentos) e em "Onboarding concluído".
 - **Meandro:** só em login, capas e rodapés de PDF. Nunca dentro das telas de trabalho.
 
+## 7.1 Modelo de PDF para o cliente
+
+Todo material que vai para o cliente sai do mesmo modelo: **diagnóstico** ([14](14-diagnostico-financeiro.md)), **planejamento** ([05](05-planejamento-financeiro.md)), **relatório de acompanhamento** ([08](08-relatorios.md)) e **plano de aportes** do período ([06](06-carteiras-e-acompanhamento.md)). Muda o conteúdo; a estrutura, as margens, a tipografia e o fecho são os mesmos. Código em `app/src/lib/pdf/modelo.tsx` (estrutura e blocos), `marca.tsx` (fontes, cores, símbolo, meandro) e `formatos.ts` (moeda, %, datas).
+
+**Estrutura (A4, sempre nesta ordem)**
+1. **Capa marinho:** símbolo + ATREIDES no alto; sobretítulo em latão com o tipo do documento; nome do cliente em Schibsted Grotesk; uma linha de contexto (período ou frase do documento); embaixo, a citação de Homero da confiança (*Ilíada* IX, 312–313), o meandro (única faixa da peça), o consultor e a data de emissão.
+2. **Miolo branco:** cabeçalho fixo (símbolo + ATREIDES à esquerda, "tipo · cliente" à direita) e rodapé fixo ("Documento confidencial, de uso exclusivo do cliente." + "Página x de y", contando a partir do miolo). Margens de 56 pt nas laterais e 64 pt em cima e embaixo; texto Inter 10 pt.
+3. **Abertura:** a primeira coisa do miolo é a faixa de **números-chave** (até 4 cartões por linha). O mais importante leva o filete de latão.
+4. **Seções:** sobretítulo em caixa alta (latão escuro) + título em Schibsted Grotesk. Tabelas com cabeçalho em caixa alta pequena, linhas finas e números alinhados à direita; nota explicativa em texto pequeno logo abaixo, quando o número precisa de contexto.
+5. **Fecho:** "Preparado por {consultor} · {data}", selo dracma e o aviso legal do tipo de documento, sempre juntos na última página. No relatório, a assinatura fica no comentário do consultor e o fecho traz só selo e aviso.
+
+**Blocos do modelo:** capa, cabeçalho, rodapé, números-chave, seção, tabela, nota, comentário do consultor (caixa com filete de latão à esquerda), markdown do consultor e fecho. Cada documento só escolhe os blocos e o texto; não cria estilo próprio.
+
+**Regras**
+- O perfil de investidor nunca aparece no PDF ([03](03-clientes.md)).
+- Sem promessa de rentabilidade: simulação é chamada de simulação e todo documento tem aviso legal.
+- Latão só como acento (sobretítulo, filete, selo, meandro). Nada de gradiente ou cor de estado fora do relatório (alerta de desvio).
+- Paginação: seções de gráfico, alocação ou caixa não quebram; tabelas com até 15 linhas vão inteiras para a próxima página se não couberem; tabelas maiores quebram entre linhas, com o cabeçalho das colunas preso à primeira linha.
+- Não usar `lineHeight` no react-pdf: na página some com o rodapé; nos blocos deixa espaço sobrando.
+- Textos em `app/messages` (namespace `pdf` para o que é comum a todos; o de cada documento no próprio módulo).
+
 ---
 
 ## 8. Acessibilidade
@@ -299,3 +320,4 @@ Nenhuma no momento.
 - 21/11/2026: tela de login redesenhada; citações de Homero sorteadas com efeito de digitação.
 - 21/11/2026: design system completo: tokens revistos (fundo de trabalho, superfícies, estado "info"), raio 6px/10px e sombra discreta em vez de cantos de 4px sem sombra; biblioteca de componentes (Radix + Lucide + CVA); nova estrutura com menu agrupado, seletor de workspace, barra superior e painel redesenhado; referência viva em `/componentes`.
 - 21/11/2026: `Select` nativo substituído por componente sobre o Radix Select (a lista nativa abria fora de posição e sem a aparência do sistema); estilos globais movidos para a camada `base` do Tailwind (o contorno de foco global sobrepunha os componentes).
+- 22/11/2026: modelo único de PDF para o cliente (seção 7.1), usado por diagnóstico, planejamento, relatório e plano de aportes.

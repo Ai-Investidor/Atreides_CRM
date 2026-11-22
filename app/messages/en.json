@@ -1278,7 +1278,45 @@
       "cancelarConfirma": "Cancel this planned contribution?",
       "pago": "Paid",
       "previsto": "Planned",
-      "valeHoje": "Worth today"
+      "valeHoje": "Worth today",
+      "baixarPdf": "Download PDF",
+      "pdf": {
+        "tituloDoc": "Contribution plan · {nome} · {periodo}",
+        "capaSobre": "Contribution plan",
+        "cabecalho": "Contribution plan · {nome}",
+        "periodoMes": "Contribution for {mes}",
+        "periodoSemana": "Contribution for the week of {data}",
+        "semanaDe": "Week of {data}",
+        "valorAporte": "Contribution amount",
+        "ativos": "Assets",
+        "periodo": "Period",
+        "situacao": "Status",
+        "planejado": "Planned",
+        "executado": "Executed",
+        "executadoEm": "on {data}",
+        "comprasSobre": "Purchases",
+        "compras": "What to buy this period",
+        "colAtivo": "Asset",
+        "colClasse": "Class",
+        "colQuantidade": "Quantity",
+        "colPreco": "Price",
+        "colValor": "Amount",
+        "colPct": "Weight",
+        "total": "Total",
+        "notaPreco": "Reference prices on the plan date. Execution uses the price on the purchase day, so the final amount may differ.",
+        "notaPrecoExecutado": "Prices recorded in the plan and posted to the portfolio on execution.",
+        "classesSobre": "Distribution",
+        "classes": "How the contribution shapes the portfolio",
+        "colNesteAporte": "This contribution",
+        "colHoje": "Portfolio today",
+        "colDepois": "After contribution",
+        "colAlvo": "Target",
+        "notaClasses": "Portfolio percentages at today's prices. \"After contribution\" adds the planned purchases to the current portfolio. The target comes from the plan.",
+        "notaClassesExecutado": "Portfolio percentages at today's prices, already including this contribution. The target comes from the plan.",
+        "notasSobre": "Advisor",
+        "notas": "Notes",
+        "aviso": "Purchase plan prepared by the advisor with reference prices on the plan date. Investments are subject to risk, including loss of capital, and past performance does not guarantee future results. This document is not an offer to buy or sell securities."
+      }
     },
     "lancamentos": {
       "titulo": "Transactions",
@@ -1602,13 +1640,7 @@
     "pdf": {
       "tituloDoc": "Portfolio report · {cliente} · {periodo}",
       "capaSobre": "Portfolio report",
-      "consultor": "Advisor: {nome}",
-      "emitidoEm": "Issued on {data}",
       "cabecalho": "{cliente} · {periodo}",
-      "rodape": "Confidential document, for the client's exclusive use.",
-      "pagina": "Page {atual} of {total}",
-      "s1Sobre": "Summary",
-      "s1Titulo": "The period in numbers",
       "patrimonioInicial": "Starting net worth",
       "patrimonioFinal": "Ending net worth",
       "aportes": "Contributions",
@@ -1933,6 +1965,17 @@
       "objetivosSobre": "Goals",
       "alocacaoSobre": "Strategy",
       "aposentadoriaSobre": "Long term"
+    }
+  },
+  "pdf": {
+    "rodape": "Confidential document, for the client's exclusive use.",
+    "pagina": "Page {atual} of {total}",
+    "consultor": "Advisor: {nome}",
+    "emitidoEm": "Issued on {data}",
+    "preparadoPor": "Prepared by {nome} · {data}",
+    "citacao": {
+      "texto": "Hateful to me as the gates of Hades is the man who hides one thing in his heart and says another.",
+      "fonte": "Homer · Iliad IX, 312–313"
     }
   }
 }

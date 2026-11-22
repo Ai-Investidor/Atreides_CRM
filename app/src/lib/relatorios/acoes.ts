@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
+import { textosModelo } from "@/lib/pdf/textos";
 import { createClient } from "@/lib/supabase/server";
 import { obterSessao } from "@/lib/sessao";
 import type { Json } from "@/lib/supabase/database.types";
@@ -70,6 +71,7 @@ export async function aprovarRelatorio(id: string, comentario: string): Promise<
       t: (k, v) => t(k, v),
       tc: (c) => tc(c),
       locale: "pt-BR",
+      textos: await textosModelo("pt-BR"),
     });
   } catch {
     return { ok: false, mensagem: "pdf" };

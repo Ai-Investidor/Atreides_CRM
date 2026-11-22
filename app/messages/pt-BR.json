@@ -1278,7 +1278,45 @@
       "cancelarConfirma": "Cancelar este aporte planejado?",
       "pago": "Pago",
       "previsto": "Previsto",
-      "valeHoje": "Vale hoje"
+      "valeHoje": "Vale hoje",
+      "baixarPdf": "Baixar PDF",
+      "pdf": {
+        "tituloDoc": "Plano de aportes · {nome} · {periodo}",
+        "capaSobre": "Plano de aportes",
+        "cabecalho": "Plano de aportes · {nome}",
+        "periodoMes": "Aporte de {mes}",
+        "periodoSemana": "Aporte da semana de {data}",
+        "semanaDe": "Semana de {data}",
+        "valorAporte": "Valor do aporte",
+        "ativos": "Ativos",
+        "periodo": "Período",
+        "situacao": "Situação",
+        "planejado": "Planejado",
+        "executado": "Executado",
+        "executadoEm": "em {data}",
+        "comprasSobre": "Compras",
+        "compras": "O que comprar neste período",
+        "colAtivo": "Ativo",
+        "colClasse": "Classe",
+        "colQuantidade": "Quantidade",
+        "colPreco": "Preço",
+        "colValor": "Valor",
+        "colPct": "Peso",
+        "total": "Total",
+        "notaPreco": "Preços de referência na data do plano. Na execução vale a cotação do dia da compra, e o valor final pode ser diferente.",
+        "notaPrecoExecutado": "Preços registrados no plano e lançados na carteira na execução.",
+        "classesSobre": "Distribuição",
+        "classes": "Como o aporte distribui a carteira",
+        "colNesteAporte": "Neste aporte",
+        "colHoje": "Carteira hoje",
+        "colDepois": "Depois do aporte",
+        "colAlvo": "Alvo",
+        "notaClasses": "Percentuais da carteira a preços de hoje. \"Depois do aporte\" soma as compras planejadas à carteira atual. O alvo vem do planejamento.",
+        "notaClassesExecutado": "Percentuais da carteira a preços de hoje, já com este aporte. O alvo vem do planejamento.",
+        "notasSobre": "Consultor",
+        "notas": "Observações",
+        "aviso": "Plano de compras preparado pelo consultor com preços de referência da data do plano. Investimentos estão sujeitos a riscos, inclusive de perda do capital, e rentabilidade passada não garante rentabilidade futura. Este documento não constitui oferta de compra ou venda de valores mobiliários."
+      }
     },
     "lancamentos": {
       "titulo": "Lançamentos",
@@ -1602,13 +1640,7 @@
     "pdf": {
       "tituloDoc": "Relatório de acompanhamento · {cliente} · {periodo}",
       "capaSobre": "Relatório de acompanhamento",
-      "consultor": "Consultor: {nome}",
-      "emitidoEm": "Emitido em {data}",
       "cabecalho": "{cliente} · {periodo}",
-      "rodape": "Documento confidencial, de uso exclusivo do cliente.",
-      "pagina": "Página {atual} de {total}",
-      "s1Sobre": "Resumo",
-      "s1Titulo": "O período em números",
       "patrimonioInicial": "Patrimônio inicial",
       "patrimonioFinal": "Patrimônio final",
       "aportes": "Aportes",
@@ -1933,6 +1965,17 @@
       "objetivosSobre": "Metas",
       "alocacaoSobre": "Estratégia",
       "aposentadoriaSobre": "Longo prazo"
+    }
+  },
+  "pdf": {
+    "rodape": "Documento confidencial, de uso exclusivo do cliente.",
+    "pagina": "Página {atual} de {total}",
+    "consultor": "Consultor: {nome}",
+    "emitidoEm": "Emitido em {data}",
+    "preparadoPor": "Preparado por {nome} · {data}",
+    "citacao": {
+      "texto": "Odioso me é, como as portas do Hades, quem esconde uma coisa no peito e diz outra.",
+      "fonte": "Homero · Ilíada IX, 312–313"
     }
   }
 }

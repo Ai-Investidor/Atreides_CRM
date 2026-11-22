@@ -104,3 +104,4 @@ Nenhuma no momento.
 - 21/11/2026: categorias de gasto confirmadas; batem com o método da consultoria.
 - 22/11/2026: redefinido a partir do método do Erick (transcrição da reunião + diagnóstico sobre dores e objetivos). O diagnóstico vira um texto em markdown com modelo de seções (objetivos, dores, sonhos, planejamento, aposentadoria), mais despesa mensal e idade de aposentadoria; nasce no lead e segue para o cliente; histórico de versões; modo apresentação e PDF com a marca. O levantamento numérico completo e a geração com IA ficam para depois. As perguntas em aberto anteriores (referências dos indicadores, PDF no MVP) deixam de se aplicar ou foram resolvidas (PDF entra).
 - 22/11/2026: implementado (banco, editor, apresentação, PDF, histórico, ligação com lead, cliente, onboarding e carteira).
+- 22/11/2026: o PDF passa a usar o modelo único de PDF para o cliente (12, seção 7.1).

@@ -36,7 +36,7 @@ Consultores e admin.
 ## Decisões de construção (21/11/2026)
 
 - **Modelo por lançamentos** (como o Investidor10): ativos de bolsa entram por compras e vendas (data, quantidade, preço pago, total, instituição). O sistema calcula quantidade, preço médio, valor investido e valor atual pela cotação. Renda fixa, fundos e previdência entram por aplicação e resgate, e o saldo é atualizado à mão com data.
-- **Plano de aportes do período** (mês ou semana, conforme a frequência do cliente): lista dos ativos que o cliente vai comprar, com ticker (o nome vem sozinho), preço por ação, quantidade e total. Ao executar, cada item vira uma compra na carteira, ligada ao aporte. Isso permite comparar o que foi comprado em cada aporte com o valor atual ao longo da consultoria.
+- **Plano de aportes do período** (mês ou semana, conforme a frequência do cliente): lista dos ativos que o cliente vai comprar, com ticker (o nome vem sozinho), preço por ação, quantidade e total. Ao executar, cada item vira uma compra na carteira, ligada ao aporte. Isso permite comparar o que foi comprado em cada aporte com o valor atual ao longo da consultoria. Cada plano gera um **PDF para o cliente** no modelo único ([12](12-interface-e-design-system.md), seção 7.1): números-chave (valor do aporte, ativos, período, situação), compras do período (ativo, classe, quantidade, preço de referência, valor e % do aporte), distribuição por classe com a carteira atual, depois do aporte (só no planejado) e o alvo do planejamento, observações e aviso.
 - **Busca e cotação** pelo Yahoo Finance, sempre pela camada `MarketDataProvider`, com cache no banco e fonte/horário visíveis. A página completa do ativo é o módulo 13.
 - **Fotografias:** "Registrar fotografia" congela o patrimônio da data (total, por classe e por posição). A evolução patrimonial usa as fotografias; a primeira é o **Marco zero** (patrimônio no início da consultoria).
 - **Card Marco zero** em vez de formulário próprio: patrimônio inicial (primeira fotografia), renda mensal (ficha do cliente) e despesa mensal (Diagnóstico, doc 14, quando existir). Cada dado tem uma fonte só.
@@ -140,3 +140,4 @@ Nenhuma que bloqueie o MVP. Ficam no [AJUSTES.md](../AJUSTES.md): ordem das corr
 - 21/11/2026: implementado (banco, provedor de mercado, dashboard da carteira, plano de aportes, fotografias, importação, visão geral).
 - 22/11/2026: o card Marco zero passa a mostrar a despesa mensal registrada no Diagnóstico (14).
 - 22/11/2026: a alocação alvo passa a vir do Planejamento (05); com planejamento salvo, o alvo não é editado na carteira.
+- 22/11/2026: plano de aportes ganha PDF para o cliente, no modelo único de PDF (12, seção 7.1). Gerado na hora, não fica guardado.

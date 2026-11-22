@@ -98,3 +98,4 @@ Nenhuma no momento.
 - 21/11/2026: periodicidade definida por cliente; sem modelo atual (criar do zero); envio por e-mail e WhatsApp.
 - 21/11/2026: envio por PDF + mensagem pronta (marcar como enviado); CDI e IPCA via Banco Central; seção de objetivos aguarda o Planejamento; periodicidade mensal, trimestral ou semestral.
 - 21/11/2026: implementado (banco, PDF, prévia, aprovação, envio, histórico, tarefa por periodicidade, CDI e IPCA).
+- 22/11/2026: o PDF passa a usar o modelo único de PDF para o cliente (12, seção 7.1); relatórios já aprovados mantêm o PDF guardado.

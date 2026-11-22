@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
-  Camera, ChartPie, CircleCheck, FileUp, Landmark, MoreHorizontal, Plus, RefreshCw, Settings2, ShoppingCart, Trash2, TriangleAlert, Wallet, X,
+  Camera, ChartPie, CircleCheck, Download, FileUp, Landmark, MoreHorizontal, Plus, RefreshCw, Settings2, ShoppingCart, Trash2, TriangleAlert, Wallet, X,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -181,14 +181,14 @@ export function PainelCarteira({ dados, usuarioId, admin, somenteLeitura, hoje }
                   ) : null}
                   <div className="my-1 border-t border-divisoria" />
                   <Linha rotulo={t("marco.renda")} valor={cliente.monthly_income ? formatarMoeda(Number(cliente.monthly_income), locale) : "—"} dica={t("marco.rendaFonte")} />
-                  <Linha rotulo={t("marco.despesa")} valor="—" dica={t("marco.despesaFonte")} />
+                  <Linha rotulo={t("marco.despesa")} valor={dados.despesaMensal !== null ? formatarMoeda(dados.despesaMensal, locale) : "—"} dica={t("marco.despesaFonte")} />
                 </dl>
               </CardContent>
             </Card>
           </div>
 
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-            <Alocacao clienteId={cliente.id} resumo={resumo} alvos={dados.alvos} limite={Number(cliente.deviation_limit)} somenteLeitura={somenteLeitura} />
+            <Alocacao clienteId={cliente.id} resumo={resumo} alvos={dados.alvos} limite={Number(cliente.deviation_limit)} somenteLeitura={somenteLeitura} alvoDoPlanejamento={dados.alvoDoPlanejamento} />
             <Aportes dados={dados} somenteLeitura={somenteLeitura} aoExecutar={(id) => setDialogo({ executar: id })} aoCancelar={(id) => acao(() => cancelarAporte(cliente.id, id))} />
           </div>
 
@@ -354,6 +354,11 @@ function Aportes({ dados, somenteLeitura, aoExecutar, aoCancelar }: { dados: Dad
                       </p>
                     </div>
                     <div className="flex items-center gap-1">
+                      <Button size="icon-sm" variant="ghost" asChild>
+                        <a href={`/api/aportes/${a.id}/pdf`} aria-label={t("baixarPdf")} title={t("baixarPdf")}>
+                          <Download />
+                        </a>
+                      </Button>
                       {executado ? (
                         <Badge tom="ok">
                           <CircleCheck className="size-3" aria-hidden="true" />
