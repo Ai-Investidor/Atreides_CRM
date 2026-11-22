@@ -1,0 +1,14 @@
+<!-- Atreides · símbolo "pedra angular". Versão para fundo marinho. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Atreides">
+  <g fill="#F3EFE6">
+    <path d="M36,12 L47,12 L53,37 A13,13 0 0,0 47,48 L47,59 L22.9,59 Z"/>
+    <path d="M84,12 L73,12 L67,37 A13,13 0 0,1 73,48 L73,59 L97.1,59 Z"/>
+    <path d="M19,61 H50 V66 H19 Z"/>
+    <path d="M70,61 H101 V66 H70 Z"/>
+    <path d="M20.4,68 L46,68 L40,98 L12,98 Z"/>
+    <path d="M99.6,68 L74,68 L80,98 L108,98 Z"/>
+    <path d="M8,100 H46 V106 H8 Z"/>
+    <path d="M74,100 H112 V106 H74 Z"/>
+  </g>
+  <path d="M50,12 L70,12 L64,34 L56,34 Z" fill="#B8925A"/>
+</svg>

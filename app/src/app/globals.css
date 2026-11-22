@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/*
+ * Tokens do design system Atreides (Documentação/12).
+ * A marca vive no marinho; o trabalho vive em fundo claro e quente.
+ * Latão é acento raro. Use sempre os tokens, nunca hex soltos nas telas.
+ */
+@theme {
+  /* Marca */
+  --color-marinho: #0e1a2b;
+  --color-marinho-2: #16263b;
+  --color-marinho-3: #1f3149;
+  --color-latao: #b8925a;
+  --color-latao-escuro: #8a6a3a;
+  --color-latao-claro: #f3ead9;
+  --color-osso: #f3efe6;
+
+  /* Superfícies da área de trabalho */
+  --color-fundo: #f7f5f0;
+  --color-superficie: #ffffff;
+  --color-superficie-2: #fbfaf7;
+  --color-borda: #e6e1d6;
+  --color-borda-forte: #cfc7b6;
+  --color-divisoria: #efebe3;
+
+  /* Texto */
+  --color-texto: #0e1a2b;
+  --color-texto-2: #4a5566;
+  --color-texto-3: #6b7584;
+
+  /* Menu (sobre marinho) */
+  --color-nevoa: #a9b3c1;
+  --color-menu-texto: #c9d0da;
+
+  /* Estados — sempre acompanhados de texto */
+  --color-ok: #1f5a3e;
+  --color-ok-fundo: #e5f0ea;
+  --color-atencao: #6b4e1e;
+  --color-atencao-fundo: #f6ecd9;
+  --color-erro: #8a2e22;
+  --color-erro-fundo: #f7e4e0;
+  --color-info: #1e4a7a;
+  --color-info-fundo: #e4edf7;
+
+  /* Tipografia */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-titulo: var(--font-schibsted), var(--font-inter), sans-serif;
+
+  /* Raios: firmeza sem rigidez */
+  --radius-marca: 6px;
+  --radius-card: 10px;
+
+  /* Sombras discretas: separam camadas, nunca decoram */
+  --shadow-card: 0 1px 2px rgb(14 26 43 / 0.04), 0 1px 1px rgb(14 26 43 / 0.03);
+  --shadow-elevado: 0 12px 32px -12px rgb(14 26 43 / 0.25), 0 2px 6px rgb(14 26 43 / 0.06);
+
+  /* Animações */
+  --animate-surgir: surgir 160ms ease-out;
+  --animate-piscar: piscar 1.1s steps(1) infinite;
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Camada base: estilos globais ficam abaixo das classes utilitárias (sem sobrepor componentes). */
+@layer base {
+  body {
+    background: var(--color-fundo);
+    color: var(--color-texto);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  /* Números sempre tabulares (alinhados em tabelas e indicadores). */
+  .numero {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-latao);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

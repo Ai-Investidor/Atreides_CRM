@@ -1,0 +1,9 @@
+<!-- Atreides · faixa de meandro grego (módulo repetível de 24×14). Usar como divisória, rodapé e capa. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 14" width="240" height="14">
+  <defs>
+    <pattern id="meandro" width="24" height="14" patternUnits="userSpaceOnUse">
+      <path d="M0,13 H24 M0,1 H24 M3,13 V4 H15 V10 H8 V7 H11" fill="none" stroke="#B8925A" stroke-width="1.6" stroke-linecap="square"/>
+    </pattern>
+  </defs>
+  <rect width="240" height="14" fill="url(#meandro)"/>
+</svg>

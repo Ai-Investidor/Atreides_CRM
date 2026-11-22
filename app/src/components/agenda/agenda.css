@@ -1,0 +1,56 @@
+/*
+ * FullCalendar v7 (tema "classic") com a paleta Fortaleza (Documentação/12).
+ * O tema usa nomes de classe com hash; a personalização é feita pelas variáveis --fc-classic-*,
+ * definidas aqui no contêiner da agenda (não importamos o palette.css do tema).
+ */
+.agenda-atreides {
+  --fc-classic-button: var(--color-marinho);
+  --fc-classic-button-border: var(--color-marinho);
+  --fc-classic-button-strong: var(--color-marinho-2);
+  --fc-classic-button-strong-border: var(--color-marinho-2);
+  --fc-classic-button-outline: #b8925a66;
+  --fc-classic-button-foreground: var(--color-osso);
+
+  --fc-classic-primary: var(--color-marinho);
+  --fc-classic-primary-foreground: var(--color-osso);
+
+  --fc-classic-event: var(--color-marinho);
+  --fc-classic-event-contrast: var(--color-osso);
+  --fc-classic-background-event: var(--color-latao);
+  --fc-classic-background-event-opacity: 15%;
+  --fc-classic-background-event-foreground-opacity: 50%;
+  --fc-classic-highlight: #b8925a26;
+  --fc-classic-today: #f3ead966;
+  --fc-classic-now: var(--color-latao);
+  --fc-classic-small-dot-width: 8px;
+  --fc-classic-large-dot-width: 10px;
+
+  --fc-classic-background: var(--color-superficie);
+  --fc-classic-faint: #0e1a2b05;
+  --fc-classic-muted: #0e1a2b0d;
+  --fc-classic-strong: #0e1a2b1a;
+
+  --fc-classic-foreground: var(--color-texto);
+  --fc-classic-faint-foreground: var(--color-nevoa);
+  --fc-classic-muted-foreground: var(--color-texto-3);
+
+  --fc-classic-border: var(--color-divisoria);
+  --fc-classic-strong-border: var(--color-borda-forte);
+
+  font-size: 13px;
+}
+
+/* O tema define 16px na raiz do calendário; a interface do Atreides usa 13px. */
+.agenda-atreides .fc-classic-n5m {
+  font-size: 13px;
+}
+
+/* Eventos: cores por origem (ver calendario.tsx › estiloDoEvento). */
+.agenda-atreides .ev-conteudo {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 2px 4px;
+  line-height: 1.25;
+}

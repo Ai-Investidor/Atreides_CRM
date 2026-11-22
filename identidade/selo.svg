@@ -1,0 +1,25 @@
+<!-- Atreides · selo estilo dracma. Para ícone, selo de documentos e marca de aprovação. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Selo Atreides">
+  <defs>
+    <path id="anel" d="M120,120 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/>
+  </defs>
+  <circle cx="120" cy="120" r="116" fill="#B8925A"/>
+  <circle cx="120" cy="120" r="106" fill="none" stroke="#0E1A2B" stroke-width="2"/>
+  <circle cx="120" cy="120" r="72" fill="none" stroke="#0E1A2B" stroke-width="2"/>
+  <text font-family="'Schibsted Grotesk', Inter, sans-serif" font-weight="700" font-size="16" fill="#0E1A2B">
+    <textPath href="#anel" startOffset="0" textLength="540" lengthAdjust="spacing">ATREIDES · ΑΤΡΕΙΔΗΣ · ATREIDES · ΑΤΡΕΙΔΗΣ ·</textPath>
+  </text>
+  <g transform="translate(66,64) scale(0.9)">
+    <g fill="#0E1A2B">
+      <path d="M36,12 L47,12 L53,37 A13,13 0 0,0 47,48 L47,59 L22.9,59 Z"/>
+      <path d="M84,12 L73,12 L67,37 A13,13 0 0,1 73,48 L73,59 L97.1,59 Z"/>
+      <path d="M19,61 H50 V66 H19 Z"/>
+      <path d="M70,61 H101 V66 H70 Z"/>
+      <path d="M20.4,68 L46,68 L40,98 L12,98 Z"/>
+      <path d="M99.6,68 L74,68 L80,98 L108,98 Z"/>
+      <path d="M8,100 H46 V106 H8 Z"/>
+      <path d="M74,100 H112 V106 H74 Z"/>
+    </g>
+    <path d="M50,12 L70,12 L64,34 L56,34 Z" fill="#F3EFE6"/>
+  </g>
+</svg>

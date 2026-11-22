@@ -1,0 +1,17 @@
+<!-- Assinatura horizontal. O nome usa Schibsted Grotesk Bold como texto:
+     antes de usar fora do navegador (gráfica, apresentação), converter o texto em contornos no Figma/Illustrator. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 120" width="460" height="120" role="img" aria-label="Atreides, consultoria de investimentos">
+  <g fill="#0E1A2B">
+    <path d="M36,12 L47,12 L53,37 A13,13 0 0,0 47,48 L47,59 L22.9,59 Z"/>
+    <path d="M84,12 L73,12 L67,37 A13,13 0 0,1 73,48 L73,59 L97.1,59 Z"/>
+    <path d="M19,61 H50 V66 H19 Z"/>
+    <path d="M70,61 H101 V66 H70 Z"/>
+    <path d="M20.4,68 L46,68 L40,98 L12,98 Z"/>
+    <path d="M99.6,68 L74,68 L80,98 L108,98 Z"/>
+    <path d="M8,100 H46 V106 H8 Z"/>
+    <path d="M74,100 H112 V106 H74 Z"/>
+  </g>
+  <path d="M50,12 L70,12 L64,34 L56,34 Z" fill="#B8925A"/>
+  <text x="128" y="70" font-family="'Schibsted Grotesk', Inter, sans-serif" font-weight="700" font-size="50" letter-spacing="7" fill="#0E1A2B">ATREIDES</text>
+  <text x="130" y="96" font-family="Inter, sans-serif" font-weight="500" font-size="11.5" letter-spacing="4.2" fill="#5A4A2E">CONSULTORIA DE INVESTIMENTOS</text>
+</svg>
