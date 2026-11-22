@@ -135,7 +135,7 @@ export type Database = {
           family_role: Database["public"]["Enums"]["family_role"] | null; full_name: string; id: string;
           investor_profile: Database["public"]["Enums"]["investor_profile"] | null; lead_id: string | null; lgpd_consent_at: string | null;
           marital_status: Database["public"]["Enums"]["marital_status"] | null; migrated: boolean; monthly_income: number | null; notes: string | null;
-          paused_at: string | null; phone: string | null; profession: string | null; profile_assessed_at: string | null; profile_valid_until: string | null;
+          paused_at: string | null; phone: string | null; profession: string | null; profile_broker: string | null; profile_document_id: string | null; profile_note: string | null; profile_recorded_at: string | null; profile_recorded_by: string | null;
           referred_by: string | null; retain_until: string | null; source: Database["public"]["Enums"]["lead_source"] | null; state: string | null;
           status: Database["public"]["Enums"]["client_status"]; updated_at: string; workspace_id: string;
           portfolio_frequency: Database["public"]["Enums"]["portfolio_frequency"]; deviation_limit: number; report_frequency: Database["public"]["Enums"]["report_frequency"];
@@ -146,7 +146,7 @@ export type Database = {
           family_role?: Database["public"]["Enums"]["family_role"] | null; full_name: string; id?: string;
           investor_profile?: Database["public"]["Enums"]["investor_profile"] | null; lead_id?: string | null; lgpd_consent_at?: string | null;
           marital_status?: Database["public"]["Enums"]["marital_status"] | null; migrated?: boolean; monthly_income?: number | null; notes?: string | null;
-          paused_at?: string | null; phone?: string | null; profession?: string | null; profile_assessed_at?: string | null; profile_valid_until?: string | null;
+          paused_at?: string | null; phone?: string | null; profession?: string | null; profile_broker?: string | null; profile_document_id?: string | null; profile_note?: string | null; profile_recorded_at?: string | null; profile_recorded_by?: string | null;
           referred_by?: string | null; retain_until?: string | null; source?: Database["public"]["Enums"]["lead_source"] | null; state?: string | null;
           status?: Database["public"]["Enums"]["client_status"]; updated_at?: string; workspace_id: string;
           portfolio_frequency?: Database["public"]["Enums"]["portfolio_frequency"]; deviation_limit?: number; report_frequency?: Database["public"]["Enums"]["report_frequency"];
@@ -157,7 +157,7 @@ export type Database = {
           family_role?: Database["public"]["Enums"]["family_role"] | null; full_name?: string; id?: string;
           investor_profile?: Database["public"]["Enums"]["investor_profile"] | null; lead_id?: string | null; lgpd_consent_at?: string | null;
           marital_status?: Database["public"]["Enums"]["marital_status"] | null; migrated?: boolean; monthly_income?: number | null; notes?: string | null;
-          paused_at?: string | null; phone?: string | null; profession?: string | null; profile_assessed_at?: string | null; profile_valid_until?: string | null;
+          paused_at?: string | null; phone?: string | null; profession?: string | null; profile_broker?: string | null; profile_document_id?: string | null; profile_note?: string | null; profile_recorded_at?: string | null; profile_recorded_by?: string | null;
           referred_by?: string | null; retain_until?: string | null; source?: Database["public"]["Enums"]["lead_source"] | null; state?: string | null;
           status?: Database["public"]["Enums"]["client_status"]; updated_at?: string; workspace_id?: string;
           portfolio_frequency?: Database["public"]["Enums"]["portfolio_frequency"]; deviation_limit?: number; report_frequency?: Database["public"]["Enums"]["report_frequency"];
@@ -166,6 +166,8 @@ export type Database = {
           { foreignKeyName: "clients_created_by_fkey"; columns: ["created_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
           { foreignKeyName: "clients_family_id_fkey"; columns: ["family_id"]; isOneToOne: false; referencedRelation: "families"; referencedColumns: ["id"] },
           { foreignKeyName: "clients_lead_id_fkey"; columns: ["lead_id"]; isOneToOne: true; referencedRelation: "leads"; referencedColumns: ["id"] },
+          { foreignKeyName: "clients_profile_document_id_fkey"; columns: ["profile_document_id"]; isOneToOne: false; referencedRelation: "client_documents"; referencedColumns: ["id"] },
+          { foreignKeyName: "clients_profile_recorded_by_fkey"; columns: ["profile_recorded_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
           { foreignKeyName: "clients_workspace_id_fkey"; columns: ["workspace_id"]; isOneToOne: false; referencedRelation: "workspaces"; referencedColumns: ["id"] },
         ];
       };
@@ -280,23 +282,6 @@ export type Database = {
         Update: { active?: boolean; created_at?: string; email?: string; full_name?: string; id?: string; locale?: string; role?: Database["public"]["Enums"]["user_role"]; updated_at?: string };
         Relationships: [];
       };
-      suitability_responses: {
-        Row: { answers: Json; client_id: string; created_at: string; created_by: string; id: string; profile: Database["public"]["Enums"]["investor_profile"]; score: number; valid_until: string; validated_version: boolean; version_id: string; workspace_id: string };
-        Insert: { answers: Json; client_id: string; created_at?: string; created_by?: string; id?: string; profile?: Database["public"]["Enums"]["investor_profile"]; score?: number; valid_until?: string; validated_version?: boolean; version_id: string; workspace_id?: string };
-        Update: { answers?: Json; client_id?: string; created_at?: string; created_by?: string; id?: string; profile?: Database["public"]["Enums"]["investor_profile"]; score?: number; valid_until?: string; validated_version?: boolean; version_id?: string; workspace_id?: string };
-        Relationships: [
-          { foreignKeyName: "suitability_responses_client_id_fkey"; columns: ["client_id"]; isOneToOne: false; referencedRelation: "clients"; referencedColumns: ["id"] },
-          { foreignKeyName: "suitability_responses_created_by_fkey"; columns: ["created_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
-          { foreignKeyName: "suitability_responses_version_id_fkey"; columns: ["version_id"]; isOneToOne: false; referencedRelation: "suitability_versions"; referencedColumns: ["id"] },
-          { foreignKeyName: "suitability_responses_workspace_id_fkey"; columns: ["workspace_id"]; isOneToOne: false; referencedRelation: "workspaces"; referencedColumns: ["id"] },
-        ];
-      };
-      suitability_versions: {
-        Row: { active: boolean; code: string; created_at: string; id: string; questions: Json; thresholds: Json; title: string; validated_at: string | null; validated_by: string | null };
-        Insert: { active?: boolean; code: string; created_at?: string; id?: string; questions: Json; thresholds: Json; title: string; validated_at?: string | null; validated_by?: string | null };
-        Update: { active?: boolean; code?: string; created_at?: string; id?: string; questions?: Json; thresholds?: Json; title?: string; validated_at?: string | null; validated_by?: string | null };
-        Relationships: [{ foreignKeyName: "suitability_versions_validated_by_fkey"; columns: ["validated_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] }];
-      };
       tasks: {
         Row: {
           assignee_id: string; client_id: string | null; completed_at: string | null; completed_by: string | null; created_at: string; created_by: string;
@@ -349,7 +334,7 @@ export type Database = {
     Enums: {
       client_event_type:
         | "created" | "migrated" | "converted_from_lead" | "status_changed" | "transferred" | "data_updated" | "note" | "document_uploaded"
-        | "document_deleted" | "suitability" | "lgpd_consent" | "task_done" | "meeting_scheduled" | "process_started" | "process_completed" | "family_changed" | "portfolio_snapshot" | "contribution_executed" | "report_approved" | "report_sent";
+        | "document_deleted" | "suitability" | "lgpd_consent" | "task_done" | "meeting_scheduled" | "process_started" | "process_completed" | "family_changed" | "portfolio_snapshot" | "contribution_executed" | "report_approved" | "report_sent" | "profile_set";
       client_status: "onboarding" | "active" | "paused" | "closed";
       asset_class: "cash" | "inflation" | "prefixed" | "multimarket" | "br_equities" | "reits" | "international" | "alternatives" | "pension";
       asset_kind: "listed" | "manual";
@@ -358,9 +343,9 @@ export type Database = {
       contribution_status: "planned" | "executed" | "canceled";
       report_frequency: "monthly" | "quarterly" | "semiannual";
       report_status: "draft" | "approved" | "superseded";
-      document_category: "contract" | "id_document" | "proof_of_address" | "lgpd_consent" | "income_proof" | "other";
+      document_category: "contract" | "id_document" | "proof_of_address" | "lgpd_consent" | "income_proof" | "other" | "broker_profile";
       family_role: "holder" | "spouse" | "dependent";
-      investor_profile: "conservative" | "moderate" | "aggressive";
+      investor_profile: "conservative" | "moderate" | "aggressive" | "very_aggressive";
       lead_contact_type: "call" | "whatsapp" | "meeting" | "email" | "note" | "stage_change" | "created" | "meeting_scheduled" | "task_done";
       lead_lost_reason: "price" | "no_fit" | "no_response" | "competitor" | "other";
       lead_source: "instagram" | "active_prospecting" | "referral" | "ai_invest" | "other";
@@ -380,4 +365,5 @@ export type Database = {
 
 export type Tables<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Row"];
 export type Enums<T extends keyof Database["public"]["Enums"]> = Database["public"]["Enums"][T];
+export type TablesUpdate<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Update"];
 export type UserRole = Database["public"]["Enums"]["user_role"];

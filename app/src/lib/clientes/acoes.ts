@@ -2,9 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import type { TablesUpdate } from "@/lib/supabase/database.types";
 import { obterSessao } from "@/lib/sessao";
 import { buscarPorCpf } from "./consultas";
-import { CATEGORIAS, esquemaCliente, PAPEIS, TAMANHO_MAX_DOC, TIPOS_DOC, type CategoriaDoc, type StatusCliente } from "./regras";
+import { CATEGORIAS, esquemaCliente, esquemaPerfil, PAPEIS, TAMANHO_MAX_DOC, TIPOS_DOC, type CategoriaDoc, type StatusCliente } from "./regras";
 
 /** Códigos traduzidos na tela em clientes.erros.<código>. */
 export type ResultadoCliente =
@@ -34,7 +35,8 @@ function mensagemBanco(e: { code?: string; hint?: string; message?: string } | n
     family_workspace: "nucleoWorkspace",
     closed_final: "encerradoFinal",
     transfer_admin: "permissao",
-    incomplete: "questionarioIncompleto",
+    profile_broker_required: "corretoraObrigatoria",
+    profile_document: "comprovanteInvalido",
     client_workspace: "clienteWorkspace",
     process_pending: "etapasPendentes",
   };
@@ -156,14 +158,15 @@ export async function exportarCliente(id: string): Promise<ResultadoCliente> {
   const s = await exigirSessao(true);
   if ("erro" in s) return s.erro!;
   const supabase = await createClient();
-  const [cliente, notas, docs, questionarios, eventos, tarefas, reunioes] = await Promise.all([
+  const [cliente, notas, docs, eventos, tarefas, reunioes, diagnostico, planejamento] = await Promise.all([
     supabase.from("clients").select("*").eq("id", id).maybeSingle(),
     supabase.from("client_notes").select("body, pinned, created_at").eq("client_id", id),
     supabase.from("client_documents").select("category, file_name, size_bytes, mime_type, created_at").eq("client_id", id),
-    supabase.from("suitability_responses").select("answers, score, profile, valid_until, validated_version, created_at").eq("client_id", id),
     supabase.from("client_events").select("type, summary, metadata, created_at").eq("client_id", id),
     supabase.from("tasks").select("title, status, due_on, completed_at, created_at").eq("client_id", id),
     supabase.from("meetings").select("title, type, starts_at, ends_at, format, status").eq("client_id", id),
+    supabase.from("diagnoses").select("id, content_md, monthly_expense, retirement_age, version, updated_at, versoes:diagnosis_versions(version, content_md, monthly_expense, retirement_age, saved_at)").eq("client_id", id).maybeSingle(),
+    supabase.from("plans").select("id, content_md, monthly_contribution, cdi_ref, ipca_ref, version, updated_at, alocacao:plan_allocations(asset_class, target_pct, premise_kind, premise_value), objetivos:plan_goals(name, target_value, target_date, saved_value), versoes:plan_versions(version, snapshot, saved_at)").eq("client_id", id).maybeSingle(),
   ]);
   if (!cliente.data) return { ok: false, mensagem: "naoEncontrado" };
   const { error } = await supabase.rpc("client_export_audit", { p_client: id });
@@ -173,10 +176,11 @@ export async function exportarCliente(id: string): Promise<ResultadoCliente> {
     cliente: cliente.data,
     anotacoes: notas.data ?? [],
     documentos: docs.data ?? [],
-    questionarios_de_perfil: questionarios.data ?? [],
     linha_do_tempo: eventos.data ?? [],
     tarefas: tarefas.data ?? [],
     reunioes: reunioes.data ?? [],
+    diagnostico: diagnostico.data ?? null,
+    planejamento: planejamento.data ?? null,
   };
   return { ok: true, id, dados: JSON.stringify(pacote, null, 2) };
 }
@@ -254,20 +258,24 @@ export async function registrarDocumento(d: {
   if (!TIPOS_DOC.includes(d.tipo)) return { ok: false, mensagem: "arquivoTipo" };
   if (!d.caminho.includes(`/${d.clienteId}/`)) return { ok: false, mensagem: "salvar" };
   const supabase = await createClient();
-  const { error } = await supabase.from("client_documents").insert({
-    client_id: d.clienteId,
-    category: d.categoria,
-    file_name: d.nome.slice(0, 255),
-    storage_path: d.caminho,
-    size_bytes: d.tamanho,
-    mime_type: d.tipo,
-  });
+  const { data, error } = await supabase
+    .from("client_documents")
+    .insert({
+      client_id: d.clienteId,
+      category: d.categoria,
+      file_name: d.nome.slice(0, 255),
+      storage_path: d.caminho,
+      size_bytes: d.tamanho,
+      mime_type: d.tipo,
+    })
+    .select("id")
+    .single();
   if (error) {
     await supabase.storage.from(BUCKET).remove([d.caminho]);
     return { ok: false, mensagem: mensagemBanco(error) };
   }
   revalidar(d.clienteId);
-  return { ok: true };
+  return { ok: true, id: data.id };
 }
 
 /** Link temporário (5 minutos) para abrir o documento. */
@@ -307,35 +315,28 @@ export async function alternarObrigatorio(categoria: CategoriaDoc, obrigatorio: 
   return { ok: true };
 }
 
-// ---------------------------------------------------------------- Questionário de perfil
+// ---------------------------------------------------------------- Perfil de investidor (corretora)
 
-/** Aplica o questionário. Pontuação e perfil são calculados pelo banco. */
-export async function aplicarQuestionario(clienteId: string, versaoId: string, respostas: Record<string, string>): Promise<ResultadoCliente> {
+/**
+ * Registra o perfil definido pela corretora (Documentação/03). O comprovante, se houver, já foi
+ * enviado como documento do cliente; aqui só é ligado ao perfil. Data e autor vêm do banco.
+ */
+export async function registrarPerfil(clienteId: string, entrada: Record<string, unknown>, documentoId?: string | null): Promise<ResultadoCliente> {
   const s = await exigirSessao();
   if ("erro" in s) return s.erro!;
+  const v = esquemaPerfil.safeParse(entrada);
+  if (!v.success) return { ok: false, erros: errosZod(v.error.issues) };
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("suitability_responses")
-    .insert({ client_id: clienteId, version_id: versaoId, answers: respostas })
-    .select("id")
-    .single();
+  const mudancas: TablesUpdate<"clients"> = {
+    investor_profile: v.data.investor_profile,
+    profile_broker: v.data.profile_broker,
+    profile_note: v.data.profile_note ?? null,
+  };
+  if (documentoId !== undefined) mudancas.profile_document_id = documentoId;
+  const { data, error } = await supabase.from("clients").update(mudancas).eq("id", clienteId).select("id");
   if (error) return { ok: false, mensagem: mensagemBanco(error) };
+  if (!data?.length) return { ok: false, mensagem: "permissao" };
   revalidar(clienteId);
-  return { ok: true, id: data.id };
-}
-
-/** Marca a versão do questionário como validada pelo compliance (só admin). */
-export async function validarVersao(id: string): Promise<ResultadoCliente> {
-  const s = await exigirSessao(true);
-  if ("erro" in s) return s.erro!;
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from("suitability_versions")
-    .update({ validated_at: new Date().toISOString(), validated_by: s.sessao.perfil.id })
-    .eq("id", id)
-    .is("validated_at", null);
-  if (error) return { ok: false, mensagem: mensagemBanco(error) };
-  revalidatePath("/configuracoes/clientes");
   return { ok: true };
 }
 

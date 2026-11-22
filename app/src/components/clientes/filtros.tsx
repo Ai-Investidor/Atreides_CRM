@@ -37,7 +37,7 @@ export function FiltrosClientes() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [busca]);
 
-  const ativos = ["status", "perfil", "revisao", "q"].some((k) => params.get(k));
+  const ativos = ["status", "perfil", "q"].some((k) => params.get(k));
 
   return (
     <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
@@ -69,10 +69,6 @@ export function FiltrosClientes() {
             </SelectItem>
           ))}
           <SelectItem value="sem">{t("perfil.sem")}</SelectItem>
-        </Select>
-        <Select value={params.get("revisao") ?? "todas"} onValueChange={(v) => aplicar("revisao", v === "todas" ? null : v)} aria-label={t("filtros.revisao")} className="sm:w-48">
-          <SelectItem value="todas">{t("filtros.qualquerPerfil")}</SelectItem>
-          <SelectItem value="vencida">{t("filtros.perfilVencido")}</SelectItem>
         </Select>
         {ativos ? (
           <Button

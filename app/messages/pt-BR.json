@@ -611,6 +611,7 @@
     "titulo": "Clientes",
     "descricao": "A ficha única de cada cliente: quem é, o perfil, o que foi combinado e o que aconteceu.",
     "novoCliente": "Novo cliente",
+    "importarBotao": "Importar",
     "importar": {
       "voltar": "Clientes",
       "sobretitulo": "Migração",
@@ -685,9 +686,9 @@
       "onboarding": "Em onboarding",
       "onboardingDetalhe": "Contrato assinado, cadastro em andamento",
       "semPerfil": "Sem perfil de investidor",
-      "semPerfilDetalhe": "Questionário ainda não aplicado",
-      "perfilVencendo": "Perfil vencido ou vencendo",
-      "perfilVencendoDetalhe": "Vence em até 30 dias"
+      "semPerfilDetalhe": "Perfil da corretora ainda não registrado",
+      "pausados": "Pausados",
+      "pausadosDetalhe": "Atendimento suspenso temporariamente"
     },
     "vazio": {
       "titulo": "Nenhum cliente ainda",
@@ -708,9 +709,6 @@
       "abertos": "Não encerrados",
       "perfil": "Perfil",
       "todosPerfis": "Todos os perfis",
-      "revisao": "Validade do perfil",
-      "qualquerPerfil": "Qualquer validade",
-      "perfilVencido": "Perfil vencido",
       "limpar": "Limpar"
     },
     "status": {
@@ -721,31 +719,44 @@
     },
     "perfil": {
       "sem": "Sem perfil",
-      "vencido": "{perfil} · vencido",
-      "vencidoCurto": "vencido",
-      "vencendo": "{perfil} · vence em {dias, plural, =0 {hoje} one {# dia} other {# dias}}",
-      "vencendoCurto": "{dias}d",
       "perfis": {
         "conservative": "Conservador",
         "moderate": "Moderado",
-        "aggressive": "Arrojado"
+        "aggressive": "Arrojado",
+        "very_aggressive": "Agressivo"
       },
       "atual": "Perfil de investidor",
-      "descricao": "Questionário de suitability (Resolução CVM 30/2021). Validade de 24 meses.",
-      "aplicar": "Aplicar questionário",
-      "aplicarNovo": "Aplicar novamente",
-      "semTitulo": "Questionário ainda não aplicado",
-      "semDescricao": "Preencha com o cliente, na reunião de onboarding.",
-      "pontuacao": "{pontos} pontos",
-      "aplicadoEm": "Aplicado em",
-      "validoAte": "Válido até",
-      "aplicadoPor": "Aplicado por",
-      "versaoNaoValidada": "Resultado obtido com a versão {versao} do questionário, ainda não validada pelo compliance.",
-      "historico": "Histórico",
-      "data": "Data",
-      "resultado": "Resultado",
-      "versao": "Versão",
-      "naoValidada": "não validada"
+      "descricao": "Perfil definido pela corretora, usado no planejamento. O Atreides não diagnostica o perfil.",
+      "registrar": "Registrar perfil",
+      "atualizar": "Atualizar perfil",
+      "semTitulo": "Perfil ainda não registrado",
+      "semDescricao": "Peça ao cliente o perfil que a corretora definiu e registre aqui.",
+      "campoPerfil": "Perfil na corretora",
+      "escolher": "Escolha o perfil",
+      "corretora": "Corretora",
+      "corretoraDica": "Corretora que definiu o perfil. Escolha da lista ou digite outra.",
+      "observacao": "Observação",
+      "observacaoDica": "Opcional. Ex.: cliente se vê mais conservador que o perfil da corretora.",
+      "comprovante": "Comprovante",
+      "abrirComprovante": "Abrir comprovante",
+      "semComprovante": "Sem comprovante",
+      "registradoEm": "Registrado em",
+      "registradoPor": "Registrado por",
+      "escala": "Escala de 4 níveis. Corretoras com 3 níveis não usam o Agressivo.",
+      "dialogoTitulo": "Perfil de investidor da corretora",
+      "dialogoDescricao": "Registre o perfil exatamente como a corretora definiu.",
+      "salvar": "Salvar perfil",
+      "salvando": "Salvando…",
+      "cancelar": "Cancelar",
+      "opcional": "opcional",
+      "arraste": "Arraste o print ou PDF do perfil na corretora",
+      "escolherArquivo": "Escolher arquivo",
+      "formatos": "PDF ou imagem (JPG, PNG, WEBP, HEIC), até 20 MB. Fica também em Documentos.",
+      "trocar": "Trocar",
+      "remover": "Remover arquivo",
+      "substituir": "Substituir",
+      "arquivoAtual": "Arquivo atual",
+      "enviadoAoSalvar": "enviado ao salvar"
     },
     "papeis": {
       "holder": "Titular",
@@ -860,14 +871,6 @@
       "semReunioes": "Nenhuma reunião marcada."
     },
     "emBreve": {
-      "diagnostico": {
-        "titulo": "Diagnóstico financeiro em breve",
-        "descricao": "Gastos, ganhos, dívidas e capacidade de investir. Chega com o módulo Diagnóstico (Documentação/14)."
-      },
-      "planejamento": {
-        "titulo": "Planejamento em breve",
-        "descricao": "Objetivos, estratégia e alocação. Chega com o módulo Planejamento (Documentação/05)."
-      },
       "carteira": {
         "titulo": "Carteira em breve",
         "descricao": "Posições, evolução e desvios. Chega com o módulo Carteiras (Documentação/06), junto com a carteira dos clientes migrados."
@@ -969,7 +972,8 @@
         "portfolio_snapshot": "Fotografia da carteira registrada",
         "contribution_executed": "Aporte executado",
         "report_approved": "Relatório aprovado",
-        "report_sent": "Relatório enviado ao cliente"
+        "report_sent": "Relatório enviado ao cliente",
+        "profile_set": "Perfil de investidor registrado: {perfil} ({corretora})"
       }
     },
     "documentos": {
@@ -997,7 +1001,8 @@
         "proof_of_address": "Comprovante de residência",
         "lgpd_consent": "Aceite LGPD",
         "income_proof": "Comprovante de renda",
-        "other": "Outro"
+        "other": "Outro",
+        "broker_profile": "Comprovante de perfil (corretora)"
       },
       "erros": {
         "nome": "Informe o nome (mínimo de 2 letras).",
@@ -1067,78 +1072,13 @@
       "nome": "Nome do núcleo",
       "qual": "Núcleo"
     },
-    "questionario": {
-      "sobretitulo": "Perfil de investidor",
-      "titulo": "Questionário de perfil",
-      "descricao": "Preencha junto com {nome}. O perfil é calculado pela pontuação e vale por 24 meses.",
-      "rascunhoTitulo": "Versão em rascunho",
-      "rascunhoTexto": "Esta versão do questionário ainda não foi validada pelo compliance. O resultado fica registrado com essa indicação.",
-      "respondidas": "{feitas} de {total} respondidas",
-      "progresso": "Progresso do questionário",
-      "dimensoes": {
-        "objetivos": "Objetivos",
-        "horizonte": "Horizonte",
-        "situacao_financeira": "Situação financeira",
-        "conhecimento": "Conhecimento e experiência",
-        "tolerancia_risco": "Tolerância a risco"
-      },
-      "cancelar": "Cancelar",
-      "concluir": "Concluir questionário",
-      "semVersaoTitulo": "Nenhuma versão ativa",
-      "semVersaoDescricao": "O admin precisa ativar uma versão do questionário.",
-      "erros": {
-        "nome": "Informe o nome (mínimo de 2 letras).",
-        "cpf": "CPF inválido.",
-        "cpfObrigatorio": "Informe o CPF.",
-        "cpfDuplicado": "Já existe um cliente com este CPF.",
-        "cpfRepetido": "CPF repetido na planilha",
-        "telefone": "Informe um celular válido, com DDD.",
-        "telefoneObrigatorio": "Informe o celular.",
-        "email": "E-mail inválido.",
-        "emailObrigatorio": "Informe o e-mail.",
-        "data": "Data inválida.",
-        "uf": "UF inválida",
-        "valor": "Valor inválido.",
-        "motivo": "Informe o motivo.",
-        "sessao": "Sua sessão expirou. Entre novamente.",
-        "salvar": "Não foi possível salvar. Tente novamente.",
-        "permissao": "Você não tem permissão para esta ação.",
-        "naoEncontrado": "Cliente não encontrado.",
-        "retencao": "Há registros dentro do prazo de retenção da CVM. A exclusão não é permitida ainda.",
-        "retencaoAte": "Há registros dentro do prazo de retenção da CVM. A exclusão só é permitida a partir de {data}.",
-        "leadInvalido": "Este lead já foi convertido ou é de outro workspace.",
-        "nucleoWorkspace": "O núcleo familiar precisa ser do mesmo workspace.",
-        "encerradoFinal": "Cliente encerrado não volta a ficar ativo.",
-        "questionarioIncompleto": "Responda todas as perguntas.",
-        "clienteWorkspace": "O cliente precisa ser deste workspace.",
-        "etapasPendentes": "Conclua as outras etapas antes da etapa final.",
-        "contatosObrigatorios": "Para sair do núcleo ou deixar de ser dependente, o cliente precisa ter CPF, celular e e-mail.",
-        "nucleoNome": "Informe o nome do núcleo.",
-        "categoria": "Categoria inválida.",
-        "arquivoGrande": "Arquivo maior que 20 MB.",
-        "arquivoTipo": "Envie PDF ou imagem (JPG, PNG, WEBP, HEIC).",
-        "nota": "Escreva a anotação.",
-        "notaLonga": "Anotação muito longa (máximo de 5.000 caracteres).",
-        "importacaoGrande": "Máximo de 500 clientes por importação.",
-        "jaCadastrado": "Já cadastrado no Atreides",
-        "envio": "Não foi possível enviar o arquivo. Tente novamente.",
-        "incompleto": "Responda todas as perguntas antes de concluir."
-      }
-    },
     "config": {
       "sobretitulo": "Administração",
       "titulo": "Configurações de clientes",
-      "descricao": "Documentos obrigatórios do onboarding e validação do questionário de perfil.",
+      "descricao": "Documentos obrigatórios do onboarding.",
       "documentosTitulo": "Documentos obrigatórios",
       "documentosDescricao": "Os marcados aparecem como pendentes na ficha até serem enviados.",
-      "erro": "Não foi possível salvar. Tente novamente.",
-      "questionarioTitulo": "Questionário de perfil",
-      "questionarioDescricao": "Marque a versão como validada só depois da aprovação formal do compliance.",
-      "ativa": "Ativa",
-      "validadaEm": "Validada em {data} por {nome}",
-      "naoValidada": "Ainda não validada pelo compliance.",
-      "validar": "Marcar como validada",
-      "validarConfirma": "Confirma que esta versão foi aprovada pelo compliance? A ação fica registrada com seu nome."
+      "erro": "Não foi possível salvar. Tente novamente."
     },
     "erros": {
       "nome": "Informe o nome (mínimo de 2 letras).",
@@ -1163,7 +1103,6 @@
       "leadInvalido": "Este lead já foi convertido ou é de outro workspace.",
       "nucleoWorkspace": "O núcleo familiar precisa ser do mesmo workspace.",
       "encerradoFinal": "Cliente encerrado não volta a ficar ativo.",
-      "questionarioIncompleto": "Responda todas as perguntas.",
       "clienteWorkspace": "O cliente precisa ser deste workspace.",
       "etapasPendentes": "Conclua as outras etapas antes da etapa final.",
       "contatosObrigatorios": "Para sair do núcleo ou deixar de ser dependente, o cliente precisa ter CPF, celular e e-mail.",
@@ -1176,7 +1115,12 @@
       "importacaoGrande": "Máximo de 500 clientes por importação.",
       "jaCadastrado": "Já cadastrado no Atreides",
       "envio": "Não foi possível enviar o arquivo. Tente novamente.",
-      "incompleto": "Responda todas as perguntas antes de concluir."
+      "incompleto": "Responda todas as perguntas antes de concluir.",
+      "perfilObrigatorio": "Escolha o perfil.",
+      "corretoraObrigatoria": "Informe a corretora que definiu o perfil.",
+      "corretoraLonga": "Nome da corretora muito longo.",
+      "observacaoLonga": "Observação muito longa (até 1.000 caracteres).",
+      "comprovanteInvalido": "O comprovante precisa ser um documento deste cliente."
     },
     "periodicidades": {
       "monthly": "Mensal",

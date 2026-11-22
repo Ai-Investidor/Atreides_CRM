@@ -6,15 +6,8 @@ Lista do que precisa ser ajustado, revisado ou completado depois que todos os fl
 
 ## Compliance e regulatório
 
-- [ ] **Compliance do questionário de perfil (suitability).** Hoje o questionário é um rascunho (versão 1) escrito pelo Atreides seguindo a Resolução CVM 30/2021, e todo resultado aparece como "versão não validada". Falta:
-  - definir quem é o responsável perante a CVM (o Erick como consultor pessoa física, ou a AI Invest com um diretor responsável) e se haverá um compliance externo;
-  - escrever a política de suitability (perguntas, pontuação, cortes entre perfis, periodicidade, tratamento de inconsistências) e aprová-la;
-  - anexar o parecer assinado à versão validada; versão validada fica travada, e qualquer mudança vira versão nova;
-  - alertas de coerência nas respostas (ex.: horizonte longo e necessidade de resgate alta), sinalizando o perfil para revisão;
-  - termo de ciência do perfil assinado pelo cliente, guardado na ficha;
-  - decidir se os perfis aplicados com a versão rascunho valem ou precisam ser reaplicados;
-  - adequação das recomendações: classificar o risco de cada ativo e bloquear (ou exigir justificativa e ciência do cliente) recomendação acima do perfil, no Planejamento e na Carteira;
-  - painel de compliance (perfis vencidos, com alerta, de versão não validada, recomendações fora do perfil) e confirmação, com advogado ou consultoria, das obrigações da Resolução CVM 30 (ex.: relatório anual).
+- [ ] **Suitability da consultoria (CVM 30).** Desde 22/11/2026 o Atreides não diagnostica o perfil: registra o perfil definido pela corretora, para uso no planejamento. Confirmar com advogado ou compliance se isso basta: a Resolução CVM 30/2021 também se aplica a **consultores de valores mobiliários**, que podem ter obrigação própria de verificar a adequação das recomendações. Se for preciso diagnóstico próprio, o questionário removido está no histórico do git (commit `cd77801`).
+- [ ] **Adequação das recomendações ao perfil:** classificar o risco de cada ativo e avisar (ou exigir justificativa) quando o planejamento ou a carteira recomendar algo acima do perfil registrado.
 - [ ] **Material de análise de ativos para clientes.** Antes de levar indicadores de ativos para relatórios enviados a clientes, validar com compliance (Resoluções CVM 19/2021 e 20/2021).
 - [ ] **Documentos obrigatórios do onboarding.** A lista padrão (contrato, documento com foto, comprovante de residência, aceite LGPD) é provisória: confirmar com o Erick e ajustar em Configurações › Clientes.
 
@@ -30,7 +23,7 @@ Lista do que precisa ser ajustado, revisado ou completado depois que todos os fl
 - [ ] **Teste real da carteira** com dados de um cliente (lançamentos, saldos, aporte, fotografia, importação).
 - [ ] **Alocação alvo.** Hoje é definida na própria carteira. Quando o Planejamento (doc 05) existir, ele vira a fonte do alvo e a carteira passa a só ler.
 - [ ] **Transferência de cliente entre workspaces.** Construída e testada só em parte (não havia um segundo workspace). Testar quando um consultor entrar.
-- [ ] **Teste de ponta a ponta logado** de Clientes, Tarefas e Carteira (cadastro, questionário, documentos, importação, conversão de lead).
+- [ ] **Teste de ponta a ponta logado** de Clientes, Tarefas e Carteira (cadastro, registro de perfil, documentos, importação, conversão de lead).
 
 ## Ativos e relatórios
 

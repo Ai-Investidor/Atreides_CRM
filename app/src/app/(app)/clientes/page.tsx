@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { FileUp, ShieldAlert, ShieldQuestion, UserRoundCheck, Users, Workflow } from "lucide-react";
+import { FileUp, PauseCircle, ShieldQuestion, UserRoundCheck, Users, Workflow } from "lucide-react";
 import { EtiquetaPerfil, EtiquetaStatus } from "@/components/clientes/etiquetas";
 import { FiltrosClientes } from "@/components/clientes/filtros";
 import { NovoCliente } from "@/components/clientes/novo-cliente";
@@ -34,10 +34,9 @@ export default async function ClientesPage({ searchParams }: PageProps<"/cliente
     busca: texto(params.q),
     status: STATUS.includes(status as StatusCliente) ? (status as StatusCliente) : null,
     perfil: perfil === "sem" ? ("sem" as const) : PERFIS.includes(perfil as Perfil) ? (perfil as Perfil) : null,
-    revisao: params.revisao === "vencida" ? ("vencida" as const) : null,
   };
   const [clientes, ind] = await Promise.all([listarClientes(filtro), indicadoresClientes(sessao.atual.id)]);
-  const filtrando = !!(filtro.busca || filtro.status || filtro.perfil || filtro.revisao);
+  const filtrando = !!(filtro.busca || filtro.status || filtro.perfil);
 
   return (
     <Page className="flex flex-col gap-6">
@@ -50,7 +49,7 @@ export default async function ClientesPage({ searchParams }: PageProps<"/cliente
             <Button asChild variant="secondary">
               <Link href="/clientes/importar">
                 <FileUp />
-                {t("importar")}
+                {t("importarBotao")}
               </Link>
             </Button>
             <NovoCliente abertoInicial={params.novo === "1"} urlAoFechar={params.novo === "1" ? "/clientes" : undefined} />
@@ -62,7 +61,7 @@ export default async function ClientesPage({ searchParams }: PageProps<"/cliente
         <StatCard destaque rotulo={t("stats.ativos")} valor={String(ind.ativos)} Icone={UserRoundCheck} detalhe={t("stats.ativosDetalhe")} />
         <StatCard rotulo={t("stats.onboarding")} valor={String(ind.onboarding)} Icone={Workflow} detalhe={t("stats.onboardingDetalhe")} />
         <StatCard rotulo={t("stats.semPerfil")} valor={String(ind.semPerfil)} Icone={ShieldQuestion} detalhe={t("stats.semPerfilDetalhe")} />
-        <StatCard rotulo={t("stats.perfilVencendo")} valor={String(ind.perfilVencendo)} Icone={ShieldAlert} detalhe={t("stats.perfilVencendoDetalhe")} />
+        <StatCard rotulo={t("stats.pausados")} valor={String(ind.pausados)} Icone={PauseCircle} detalhe={t("stats.pausadosDetalhe")} />
       </section>
 
       <FiltrosClientes />
@@ -110,7 +109,7 @@ export default async function ClientesPage({ searchParams }: PageProps<"/cliente
                     <p className="truncate text-xs text-texto-3">{c.email ?? ""}</p>
                   </TD>
                   <TD>
-                    <EtiquetaPerfil cliente={c} compacto />
+                    <EtiquetaPerfil cliente={c} />
                   </TD>
                   <TD className="numero hidden text-texto-2 lg:table-cell">{formatarMoeda(c.declared_net_worth, locale)}</TD>
                   <TD className="hidden sm:table-cell">

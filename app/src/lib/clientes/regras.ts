@@ -1,7 +1,6 @@
 import { z } from "zod";
 import type { Enums, Tables } from "@/lib/supabase/database.types";
 import { ORIGENS } from "@/lib/leads/regras";
-import { diasEntre, hojeISO } from "@/lib/formatos";
 
 /** Regras de clientes (Documentação/03). Usado na tela e no servidor. */
 
@@ -12,10 +11,11 @@ export type CategoriaDoc = Enums<"document_category">;
 export type TipoEvento = Enums<"client_event_type">;
 
 export const STATUS = ["onboarding", "active", "paused", "closed"] as const satisfies readonly StatusCliente[];
-export const PERFIS = ["conservative", "moderate", "aggressive"] as const satisfies readonly Perfil[];
+/** Escala de 4 níveis do perfil informado pela corretora (quem usa 3 níveis não usa o último). */
+export const PERFIS = ["conservative", "moderate", "aggressive", "very_aggressive"] as const satisfies readonly Perfil[];
 export const ESTADOS_CIVIS = ["single", "married", "stable_union", "divorced", "widowed"] as const satisfies readonly Enums<"marital_status">[];
 export const PAPEIS = ["holder", "spouse", "dependent"] as const satisfies readonly Enums<"family_role">[];
-export const CATEGORIAS = ["contract", "id_document", "proof_of_address", "lgpd_consent", "income_proof", "other"] as const satisfies readonly CategoriaDoc[];
+export const CATEGORIAS = ["contract", "id_document", "proof_of_address", "lgpd_consent", "income_proof", "broker_profile", "other"] as const satisfies readonly CategoriaDoc[];
 export const UFS = [
   "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB",
   "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
@@ -51,15 +51,6 @@ export function cpfMascarado(cpf: string | null): string {
   if (!cpf) return "—";
   const f = formatarCPF(cpf);
   return `***${f.slice(3, 11)}-**`;
-}
-
-/** Situação do perfil de investidor: sem perfil, vencido, vencendo (30 dias) ou em dia. */
-export function situacaoPerfil(c: Pick<Cliente, "investor_profile" | "profile_valid_until">, hoje = hojeISO()) {
-  if (!c.investor_profile || !c.profile_valid_until) return { tipo: "sem" as const };
-  const dias = diasEntre(hoje, c.profile_valid_until);
-  if (dias < 0) return { tipo: "vencido" as const, dias: -dias };
-  if (dias <= 30) return { tipo: "vencendo" as const, dias };
-  return { tipo: "ok" as const, dias };
 }
 
 const texto = (max: number) =>
@@ -113,14 +104,22 @@ export const esquemaCliente = z
 
 export type DadosCliente = z.input<typeof esquemaCliente>;
 
-/** Questionário de perfil (conteúdo vem da versão ativa no banco). */
-export type Opcao = { id: string; text: string; points: number };
-export type Questao = { id: string; dimension: string; text: string; options: Opcao[] };
-export type VersaoQuestionario = {
-  id: string;
-  code: string;
-  title: string;
-  questions: Questao[];
-  validated_at: string | null;
-};
-export const DIMENSOES = ["objetivos", "horizonte", "situacao_financeira", "conhecimento", "tolerancia_risco"] as const;
+/**
+ * Perfil de investidor definido pela corretora (Documentação/03). O Atreides não diagnostica:
+ * só registra, para usar no planejamento. Data e autor do registro vêm do banco.
+ */
+export const esquemaPerfil = z.object({
+  investor_profile: z.enum(PERFIS, { error: "perfilObrigatorio" }),
+  profile_broker: z.string().trim().min(1, "corretoraObrigatoria").max(80, "corretoraLonga"),
+  profile_note: z
+    .string()
+    .trim()
+    .max(1000, "observacaoLonga")
+    .transform((v) => v || null)
+    .nullable()
+    .optional(),
+});
+export type DadosPerfil = z.input<typeof esquemaPerfil>;
+
+/** Corretoras sugeridas no campo (o consultor pode digitar outra). */
+export const CORRETORAS = ["XP", "Rico", "Clear", "BTG Pactual", "Inter", "Nubank", "Itaú", "Bradesco", "Santander", "Banco do Brasil", "Genial", "Modal", "Toro", "Avenue"] as const;

@@ -1,13 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
-import { hojeISO, somarDias } from "@/lib/formatos";
-import type { CategoriaDoc, Cliente, Perfil, StatusCliente, TipoEvento, VersaoQuestionario } from "./regras";
+import type { CategoriaDoc, Cliente, Perfil, StatusCliente, TipoEvento } from "./regras";
 
 export type FiltroClientes = {
   workspaceId: string;
   busca?: string | null;
   status?: StatusCliente | "abertos" | null;
   perfil?: Perfil | "sem" | null;
-  revisao?: "vencida" | null;
 };
 
 /** Lista do workspace. Padrão: sem os encerrados. Busca por nome, CPF, e-mail ou celular. */
@@ -15,14 +13,13 @@ export async function listarClientes(f: FiltroClientes) {
   const supabase = await createClient();
   let q = supabase
     .from("clients")
-    .select("id, full_name, cpf, phone, email, status, investor_profile, profile_valid_until, declared_net_worth, migrated, family_role, city, state")
+    .select("id, full_name, cpf, phone, email, status, investor_profile, profile_broker, declared_net_worth, migrated, family_role, city, state")
     .eq("workspace_id", f.workspaceId);
 
   if (!f.status || f.status === "abertos") q = q.neq("status", "closed");
   else q = q.eq("status", f.status);
   if (f.perfil === "sem") q = q.is("investor_profile", null);
   else if (f.perfil) q = q.eq("investor_profile", f.perfil);
-  if (f.revisao === "vencida") q = q.lt("profile_valid_until", hojeISO());
 
   const termo = f.busca?.trim();
   if (termo) {
@@ -42,15 +39,13 @@ export type ItemLista = Awaited<ReturnType<typeof listarClientes>>[number];
 /** Indicadores da lista. */
 export async function indicadoresClientes(workspaceId: string) {
   const supabase = await createClient();
-  const { data } = await supabase.from("clients").select("status, profile_valid_until, investor_profile").eq("workspace_id", workspaceId).neq("status", "closed");
+  const { data } = await supabase.from("clients").select("status, investor_profile").eq("workspace_id", workspaceId).neq("status", "closed");
   const lista = data ?? [];
-  const hoje = hojeISO();
-  const limite = somarDias(hoje, 30);
   return {
     ativos: lista.filter((c) => c.status === "active").length,
     onboarding: lista.filter((c) => c.status === "onboarding").length,
     semPerfil: lista.filter((c) => !c.investor_profile).length,
-    perfilVencendo: lista.filter((c) => c.profile_valid_until && c.profile_valid_until <= limite).length,
+    pausados: lista.filter((c) => c.status === "paused").length,
   };
 }
 
@@ -89,11 +84,13 @@ export async function obterCliente(id: string) {
   const { data: cliente } = await supabase.from("clients").select("*").eq("id", id).maybeSingle();
   if (!cliente) return null;
 
-  const [eventos, notas, docs, respostas, processos, familia, reunioes, contatosLead, workspace, nucleo] = await Promise.all([
+  const [eventos, notas, docs, registrador, processos, familia, reunioes, contatosLead, workspace, nucleo] = await Promise.all([
     supabase.from("client_events").select("*, autor:profiles!client_events_created_by_fkey(full_name)").eq("client_id", id).order("created_at", { ascending: false }).limit(300),
     supabase.from("client_notes").select("*, autor:profiles!client_notes_created_by_fkey(full_name)").eq("client_id", id).order("pinned", { ascending: false }).order("created_at", { ascending: false }),
     supabase.from("client_documents").select("*, autor:profiles!client_documents_uploaded_by_fkey(full_name)").eq("client_id", id).order("created_at", { ascending: false }),
-    supabase.from("suitability_responses").select("*, versao:suitability_versions(code, validated_at), autor:profiles!suitability_responses_created_by_fkey(full_name)").eq("client_id", id).order("created_at", { ascending: false }),
+    cliente.profile_recorded_by
+      ? supabase.from("profiles").select("full_name").eq("id", cliente.profile_recorded_by).maybeSingle()
+      : Promise.resolve({ data: null }),
     supabase.from("processes").select("*, modelo:process_templates(code, name)").eq("client_id", id).order("started_at", { ascending: false }),
     cliente.family_id
       ? supabase.from("clients").select("id, full_name, family_role, declared_net_worth, investor_profile, status").eq("family_id", cliente.family_id).order("full_name")
@@ -144,7 +141,10 @@ export async function obterCliente(id: string) {
     linha,
     notas: notas.data ?? [],
     documentos: docs.data ?? [],
-    questionarios: respostas.data ?? [],
+    perfil: {
+      registradoPor: registrador.data?.full_name ?? null,
+      comprovante: (docs.data ?? []).find((d) => d.id === cliente.profile_document_id) ?? null,
+    },
     processo: processoAtual,
     etapas,
     familia: { nucleo: nucleo.data, membros: familia.data ?? [] },
@@ -164,22 +164,6 @@ export async function documentosObrigatorios(): Promise<CategoriaDoc[]> {
 export async function requisitosDocumentos() {
   const supabase = await createClient();
   const { data } = await supabase.from("document_requirements").select("*");
-  return data ?? [];
-}
-
-/** Versão ativa do questionário de perfil. */
-export async function versaoAtiva(): Promise<VersaoQuestionario | null> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("suitability_versions").select("id, code, title, questions, validated_at").eq("active", true).maybeSingle();
-  return (data as VersaoQuestionario | null) ?? null;
-}
-
-export async function todasVersoes() {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("suitability_versions")
-    .select("id, code, title, active, validated_at, validador:profiles!suitability_versions_validated_by_fkey(full_name)")
-    .order("created_at", { ascending: false });
   return data ?? [];
 }
 

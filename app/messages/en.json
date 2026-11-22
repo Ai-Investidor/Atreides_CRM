@@ -611,6 +611,7 @@
     "titulo": "Clients",
     "descricao": "Each client's single record: who they are, their profile, what was agreed and what happened.",
     "novoCliente": "New client",
+    "importarBotao": "Import",
     "importar": {
       "voltar": "Clients",
       "sobretitulo": "Migration",
@@ -685,9 +686,9 @@
       "onboarding": "In onboarding",
       "onboardingDetalhe": "Contract signed, setup in progress",
       "semPerfil": "No investor profile",
-      "semPerfilDetalhe": "Questionnaire not yet applied",
-      "perfilVencendo": "Profile expired or expiring",
-      "perfilVencendoDetalhe": "Expires within 30 days"
+      "semPerfilDetalhe": "Broker profile not recorded yet",
+      "pausados": "Paused",
+      "pausadosDetalhe": "Service temporarily suspended"
     },
     "vazio": {
       "titulo": "No clients yet",
@@ -708,9 +709,6 @@
       "abertos": "Not closed",
       "perfil": "Profile",
       "todosPerfis": "All profiles",
-      "revisao": "Profile validity",
-      "qualquerPerfil": "Any validity",
-      "perfilVencido": "Expired profile",
       "limpar": "Clear"
     },
     "status": {
@@ -721,31 +719,44 @@
     },
     "perfil": {
       "sem": "No profile",
-      "vencido": "{perfil} · expired",
-      "vencidoCurto": "expired",
-      "vencendo": "{perfil} · expires in {dias, plural, =0 {today} one {# day} other {# days}}",
-      "vencendoCurto": "{dias}d",
       "perfis": {
         "conservative": "Conservative",
         "moderate": "Moderate",
-        "aggressive": "Aggressive"
+        "aggressive": "Bold",
+        "very_aggressive": "Aggressive"
       },
       "atual": "Investor profile",
-      "descricao": "Suitability questionnaire (CVM Resolution 30/2021). Valid for 24 months.",
-      "aplicar": "Apply questionnaire",
-      "aplicarNovo": "Apply again",
-      "semTitulo": "Questionnaire not yet applied",
-      "semDescricao": "Fill it in with the client during the onboarding meeting.",
-      "pontuacao": "{pontos} points",
-      "aplicadoEm": "Applied on",
-      "validoAte": "Valid until",
-      "aplicadoPor": "Applied by",
-      "versaoNaoValidada": "Result from questionnaire version {versao}, not yet validated by compliance.",
-      "historico": "History",
-      "data": "Date",
-      "resultado": "Result",
-      "versao": "Version",
-      "naoValidada": "not validated"
+      "descricao": "Profile defined by the broker, used in planning. Atreides does not assess the profile.",
+      "registrar": "Record profile",
+      "atualizar": "Update profile",
+      "semTitulo": "Profile not recorded yet",
+      "semDescricao": "Ask the client for the profile defined by the broker and record it here.",
+      "campoPerfil": "Profile at the broker",
+      "escolher": "Choose the profile",
+      "corretora": "Broker",
+      "corretoraDica": "Broker that defined the profile. Pick from the list or type another.",
+      "observacao": "Note",
+      "observacaoDica": "Optional. E.g.: client sees themselves as more conservative than the broker profile.",
+      "comprovante": "Proof",
+      "abrirComprovante": "Open proof",
+      "semComprovante": "No proof",
+      "registradoEm": "Recorded on",
+      "registradoPor": "Recorded by",
+      "escala": "4-level scale. Brokers with 3 levels do not use Aggressive.",
+      "dialogoTitulo": "Investor profile from the broker",
+      "dialogoDescricao": "Record the profile exactly as the broker defined it.",
+      "salvar": "Save profile",
+      "salvando": "Saving…",
+      "cancelar": "Cancel",
+      "opcional": "optional",
+      "arraste": "Drop the screenshot or PDF of the broker profile",
+      "escolherArquivo": "Choose file",
+      "formatos": "PDF or image (JPG, PNG, WEBP, HEIC), up to 20 MB. Also stored in Documents.",
+      "trocar": "Replace",
+      "remover": "Remove file",
+      "substituir": "Replace",
+      "arquivoAtual": "Current file",
+      "enviadoAoSalvar": "uploaded on save"
     },
     "papeis": {
       "holder": "Holder",
@@ -860,14 +871,6 @@
       "semReunioes": "No meetings scheduled."
     },
     "emBreve": {
-      "diagnostico": {
-        "titulo": "Financial diagnosis coming soon",
-        "descricao": "Spending, income, debt and investing capacity. Arrives with the Diagnosis module (Docs/14)."
-      },
-      "planejamento": {
-        "titulo": "Plan coming soon",
-        "descricao": "Goals, strategy and allocation. Arrives with the Planning module (Docs/05)."
-      },
       "carteira": {
         "titulo": "Portfolio coming soon",
         "descricao": "Positions, performance and deviations. Arrives with the Portfolios module (Docs/06), including migrated clients' portfolios."
@@ -969,7 +972,8 @@
         "portfolio_snapshot": "Portfolio snapshot recorded",
         "contribution_executed": "Contribution executed",
         "report_approved": "Report approved",
-        "report_sent": "Report sent to client"
+        "report_sent": "Report sent to client",
+        "profile_set": "Investor profile recorded: {perfil} ({corretora})"
       }
     },
     "documentos": {
@@ -997,7 +1001,8 @@
         "proof_of_address": "Proof of address",
         "lgpd_consent": "LGPD consent",
         "income_proof": "Proof of income",
-        "other": "Other"
+        "other": "Other",
+        "broker_profile": "Profile proof (broker)"
       },
       "erros": {
         "nome": "Enter the name (at least 2 letters).",
@@ -1067,78 +1072,13 @@
       "nome": "Group name",
       "qual": "Group"
     },
-    "questionario": {
-      "sobretitulo": "Investor profile",
-      "titulo": "Profile questionnaire",
-      "descricao": "Fill it in with {nome}. The profile is calculated from the score and is valid for 24 months.",
-      "rascunhoTitulo": "Draft version",
-      "rascunhoTexto": "This questionnaire version hasn't been validated by compliance yet. The result is recorded with this note.",
-      "respondidas": "{feitas} of {total} answered",
-      "progresso": "Questionnaire progress",
-      "dimensoes": {
-        "objetivos": "Goals",
-        "horizonte": "Time horizon",
-        "situacao_financeira": "Financial situation",
-        "conhecimento": "Knowledge and experience",
-        "tolerancia_risco": "Risk tolerance"
-      },
-      "cancelar": "Cancel",
-      "concluir": "Finish questionnaire",
-      "semVersaoTitulo": "No active version",
-      "semVersaoDescricao": "The admin needs to activate a questionnaire version.",
-      "erros": {
-        "nome": "Enter the name (at least 2 letters).",
-        "cpf": "Invalid CPF.",
-        "cpfObrigatorio": "Enter the CPF.",
-        "cpfDuplicado": "A client with this CPF already exists.",
-        "cpfRepetido": "CPF repeated in the file",
-        "telefone": "Enter a valid mobile number with area code.",
-        "telefoneObrigatorio": "Enter the mobile number.",
-        "email": "Invalid email.",
-        "emailObrigatorio": "Enter the email.",
-        "data": "Invalid date.",
-        "uf": "Invalid state",
-        "valor": "Invalid amount.",
-        "motivo": "Enter the reason.",
-        "sessao": "Your session expired. Sign in again.",
-        "salvar": "Couldn't save. Try again.",
-        "permissao": "You don't have permission for this action.",
-        "naoEncontrado": "Client not found.",
-        "retencao": "There are records within the CVM retention period. Deletion isn't allowed yet.",
-        "retencaoAte": "There are records within the CVM retention period. Deletion is allowed from {data}.",
-        "leadInvalido": "This lead was already converted or belongs to another workspace.",
-        "nucleoWorkspace": "The family group must be in the same workspace.",
-        "encerradoFinal": "A closed client can't be reactivated.",
-        "questionarioIncompleto": "Answer every question.",
-        "clienteWorkspace": "The client must be in this workspace.",
-        "etapasPendentes": "Complete the other steps before the final one.",
-        "contatosObrigatorios": "To leave the group or stop being a dependent, the client needs CPF, mobile and email.",
-        "nucleoNome": "Enter the group name.",
-        "categoria": "Invalid category.",
-        "arquivoGrande": "File larger than 20 MB.",
-        "arquivoTipo": "Upload a PDF or image (JPG, PNG, WEBP, HEIC).",
-        "nota": "Write the note.",
-        "notaLonga": "Note too long (5,000 characters max).",
-        "importacaoGrande": "Up to 500 clients per import.",
-        "jaCadastrado": "Already in Atreides",
-        "envio": "Couldn't upload the file. Try again.",
-        "incompleto": "Answer every question before finishing."
-      }
-    },
     "config": {
       "sobretitulo": "Administration",
       "titulo": "Client settings",
-      "descricao": "Required onboarding documents and profile questionnaire validation.",
+      "descricao": "Required onboarding documents.",
       "documentosTitulo": "Required documents",
       "documentosDescricao": "Checked items show as pending on the record until uploaded.",
-      "erro": "Couldn't save. Try again.",
-      "questionarioTitulo": "Profile questionnaire",
-      "questionarioDescricao": "Mark the version as validated only after formal compliance approval.",
-      "ativa": "Active",
-      "validadaEm": "Validated on {data} by {nome}",
-      "naoValidada": "Not yet validated by compliance.",
-      "validar": "Mark as validated",
-      "validarConfirma": "Confirm this version was approved by compliance? The action is recorded under your name."
+      "erro": "Couldn't save. Try again."
     },
     "erros": {
       "nome": "Enter the name (at least 2 letters).",
@@ -1163,7 +1103,6 @@
       "leadInvalido": "This lead was already converted or belongs to another workspace.",
       "nucleoWorkspace": "The family group must be in the same workspace.",
       "encerradoFinal": "A closed client can't be reactivated.",
-      "questionarioIncompleto": "Answer every question.",
       "clienteWorkspace": "The client must be in this workspace.",
       "etapasPendentes": "Complete the other steps before the final one.",
       "contatosObrigatorios": "To leave the group or stop being a dependent, the client needs CPF, mobile and email.",
@@ -1176,7 +1115,12 @@
       "importacaoGrande": "Up to 500 clients per import.",
       "jaCadastrado": "Already in Atreides",
       "envio": "Couldn't upload the file. Try again.",
-      "incompleto": "Answer every question before finishing."
+      "incompleto": "Answer every question before finishing.",
+      "perfilObrigatorio": "Choose the profile.",
+      "corretoraObrigatoria": "Enter the broker that defined the profile.",
+      "corretoraLonga": "Broker name too long.",
+      "observacaoLonga": "Note too long (up to 1,000 characters).",
+      "comprovanteInvalido": "The proof must be a document of this client."
     },
     "periodicidades": {
       "monthly": "Monthly",

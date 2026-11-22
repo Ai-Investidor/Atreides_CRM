@@ -3,7 +3,8 @@
 import { useLocale, useTranslations } from "next-intl";
 import {
   ArrowRightLeft, CalendarPlus, Camera, FileCheck2, Send, ShoppingCart, CircleCheck, FileUp, FileX, Flag, History, MessageCircle, NotebookPen, PenLine,
-  Phone, ShieldCheck, Sparkles, Target, UserCheck, Users, Workflow, type LucideIcon,
+  Phone, ShieldCheck,
+  Compass, Stethoscope, Sparkles, Target, UserCheck, Users, Workflow, type LucideIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/feedback";
@@ -13,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 const ICONES: Record<string, LucideIcon> = {
   created: Sparkles, migrated: Sparkles, converted_from_lead: UserCheck, status_changed: Flag, transferred: ArrowRightLeft,
-  data_updated: PenLine, note: NotebookPen, document_uploaded: FileUp, document_deleted: FileX, suitability: ShieldCheck,
+  data_updated: PenLine, note: NotebookPen, document_uploaded: FileUp, document_deleted: FileX, suitability: ShieldCheck, profile_set: ShieldCheck, diagnosis_updated: Stethoscope, plan_updated: Compass,
   lgpd_consent: ShieldCheck, task_done: CircleCheck, meeting_scheduled: CalendarPlus, process_started: Workflow,
   process_completed: Workflow, family_changed: Users, portfolio_snapshot: Camera, contribution_executed: ShoppingCart, report_approved: FileCheck2, report_sent: Send,
   lead_created: Target, lead_stage_change: ArrowRightLeft, lead_whatsapp: MessageCircle, lead_call: Phone, lead_meeting: Users,
@@ -46,6 +47,12 @@ export function LinhaTempo({ eventos }: { eventos: EventoLinha[] }) {
     switch (e.tipo) {
       case "status_changed":
         return t("eventos.status_changed", { de: tc(`status.${m.from as string}`), para: tc(`status.${m.to as string}`) });
+      case "plan_updated":
+        return t("eventos.plan_updated", { versao: Number(m.version ?? 1) });
+      case "diagnosis_updated":
+        return t("eventos.diagnosis_updated", { versao: Number(m.version ?? 1) });
+      case "profile_set":
+        return t("eventos.profile_set", { perfil: tc(`perfil.perfis.${m.profile as string}`), corretora: (m.broker as string) ?? "—" });
       case "suitability":
         return t("eventos.suitability", { perfil: tc(`perfil.perfis.${m.profile as string}`), pontos: Number(m.score ?? 0) });
       case "process_started":

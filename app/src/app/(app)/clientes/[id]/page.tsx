@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { CalendarClock, Compass, Mail, MessageCircle, Stethoscope, Video } from "lucide-react";
+import { CalendarClock, Mail, MessageCircle, Video } from "lucide-react";
 import { AbaDados } from "@/components/clientes/aba-dados";
 import { AbaDocumentos } from "@/components/clientes/aba-documentos";
 import { AbaPerfil } from "@/components/clientes/aba-perfil";
@@ -16,10 +16,13 @@ import { PainelCarteira } from "@/components/carteira/painel-carteira";
 import { carteiraDoCliente } from "@/lib/carteira/consultas";
 import { RelatoriosDoCliente } from "@/components/relatorios/lista-cliente";
 import { relatoriosDoCliente } from "@/lib/relatorios/consultas";
+import { obterDiagnostico } from "@/lib/diagnostico/consultas";
+import { obterPlanejamento } from "@/lib/planejamento/consultas";
+import { CardPlanejamento } from "@/components/planejamento/card-planejamento";
+import { CardDiagnostico } from "@/components/diagnostico/card-diagnostico";
 import { ultimoPeriodo } from "@/lib/relatorios/regras";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/feedback";
 import { Page } from "@/components/ui/layout";
 import { documentosObrigatorios, nucleosDoWorkspace, obterCliente } from "@/lib/clientes/consultas";
 import { cpfMascarado } from "@/lib/clientes/regras";
@@ -51,13 +54,15 @@ export default async function ClientePage({ params, searchParams }: PageProps<"/
   const { cliente } = ficha;
   const encerrado = cliente.status === "closed";
 
-  const [tarefas, membros, obrigatorios, nucleos, carteira, relatorios] = await Promise.all([
+  const [tarefas, membros, obrigatorios, nucleos, carteira, relatorios, diagnostico, planejamento] = await Promise.all([
     aba === "resumo" ? tarefasDoCliente(cliente.id) : Promise.resolve([]),
     aba === "resumo" ? membrosAtivos() : Promise.resolve([]),
     aba === "documentos" ? documentosObrigatorios() : Promise.resolve([]),
     aba === "dados" ? nucleosDoWorkspace(cliente.workspace_id) : Promise.resolve([]),
     aba === "carteira" ? carteiraDoCliente(cliente.id) : Promise.resolve(null),
     aba === "relatorios" ? relatoriosDoCliente(cliente.id) : Promise.resolve([]),
+    aba === "diagnostico" ? obterDiagnostico({ tipo: "cliente", id: cliente.id }) : Promise.resolve(null),
+    aba === "planejamento" ? obterPlanejamento(cliente.id) : Promise.resolve(null),
   ]);
 
   const proximas = futuras(ficha.reunioes).slice(0, 3);
@@ -220,7 +225,7 @@ export default async function ClientePage({ params, searchParams }: PageProps<"/
       ) : null}
 
       {aba === "linha" ? <LinhaTempo eventos={ficha.linha} /> : null}
-      {aba === "perfil" ? <AbaPerfil ficha={ficha} podeAplicar={!encerrado} /> : null}
+      {aba === "perfil" ? <AbaPerfil ficha={ficha} podeEditar={!encerrado} /> : null}
       {aba === "documentos" ? <AbaDocumentos ficha={ficha} obrigatorios={obrigatorios} admin={admin} somenteLeitura={encerrado} /> : null}
       {aba === "dados" ? <AbaDados ficha={ficha} nucleos={nucleos} somenteLeitura={encerrado} /> : null}
       {aba === "carteira" && carteira ? (
@@ -235,15 +240,8 @@ export default async function ClientePage({ params, searchParams }: PageProps<"/
           somenteLeitura={encerrado}
         />
       ) : null}
-      {aba === "diagnostico" || aba === "planejamento" ? (
-        <Card>
-          <EmptyState
-            Icone={aba === "diagnostico" ? Stethoscope : Compass}
-            titulo={t(`emBreve.${aba}.titulo`)}
-            descricao={t(`emBreve.${aba}.descricao`)}
-          />
-        </Card>
-      ) : null}
+      {aba === "diagnostico" ? <CardDiagnostico alvo={{ tipo: "cliente", id: cliente.id }} dados={diagnostico} nome={cliente.full_name} podeEditar={!encerrado} /> : null}
+      {aba === "planejamento" && planejamento ? <CardPlanejamento clienteId={cliente.id} dados={planejamento} hoje={hojeISO()} podeEditar={!encerrado} /> : null}
     </Page>
   );
 }
