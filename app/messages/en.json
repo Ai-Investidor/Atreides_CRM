@@ -973,7 +973,8 @@
         "contribution_executed": "Contribution executed",
         "report_approved": "Report approved",
         "report_sent": "Report sent to client",
-        "profile_set": "Investor profile recorded: {perfil} ({corretora})"
+        "profile_set": "Investor profile recorded: {perfil} ({corretora})",
+        "diagnosis_updated": "Assessment updated (version {versao})"
       }
     },
     "documentos": {
@@ -1186,7 +1187,7 @@
       "renda": "Monthly income",
       "rendaFonte": "from the client record",
       "despesa": "Monthly expenses",
-      "despesaFonte": "will come from the Financial diagnosis",
+      "despesaFonte": "From the client's Assessment.",
       "evolucaoDica": "total change, includes contributions",
       "cdi": "CDI over the same period",
       "ipca": "IPCA over the same period",
@@ -1714,5 +1715,81 @@
         "periodo": "Invalid period."
       }
     }
+  },
+  "diagnostico": {
+    "titulo": "Assessment",
+    "descricao": "Goals, pains, dreams, projects and retirement, discussed in the assessment meeting.",
+    "descricaoLead": "Write the assessment from the meeting with the lead here. On conversion, it moves to the client.",
+    "escrever": "Write assessment",
+    "editar": "Edit",
+    "apresentar": "Present",
+    "baixarPdf": "Download PDF",
+    "historico": "History",
+    "versaoAtual": "Version {versao} · saved on {data} by {nome}",
+    "vazioTitulo": "Assessment not written yet",
+    "vazioDescricao": "Write it from the meeting or upload the file you already prepared (.md or .txt).",
+    "despesa": "Monthly expense",
+    "despesaDica": "In BRL. Shown on the portfolio Starting point card.",
+    "aposentadoria": "Retirement age",
+    "aposentadoriaDica": "Age the client intends to retire, between 30 and 100.",
+    "anos": "{idade} years",
+    "salvar": "Save",
+    "cancelar": "Cancel",
+    "markdownDica": "Use ## for headings, **bold**, _italic_ and - for lists. The preview shows how it looks in the presentation and the PDF.",
+    "versoes": {
+      "titulo": "Previous versions",
+      "descricao": "Each time the assessment is saved, the previous version is kept here.",
+      "versao": "Version {versao}",
+      "salvaEm": "Saved on {data} by {nome}",
+      "ver": "View",
+      "vazio": "No previous versions.",
+      "fechar": "Close"
+    },
+    "apresentacao": {
+      "sobre": "Assessment"
+    },
+    "erros": {
+      "textoLongo": "Text too long (up to 100,000 characters).",
+      "despesa": "Enter an amount in BRL, zero or more.",
+      "idade": "Enter a whole age between 30 and 100.",
+      "sessao": "Your session expired. Sign in again.",
+      "salvar": "Could not save. Try again.",
+      "permissao": "You do not have permission for this action.",
+      "naoEncontrado": "Version not found."
+    },
+    "pdf": {
+      "tituloDoc": "Assessment · {nome}",
+      "capaSobre": "Assessment",
+      "capaFrase": "Goals, priorities and the starting point of the plan.",
+      "cabecalho": "Assessment · {nome}",
+      "despesa": "Monthly expense",
+      "aposentadoria": "Intended retirement",
+      "aposentadoriaValor": "at {idade}",
+      "aviso": "Prepared from information provided by the client in meetings with the advisory. Not an offer or investment recommendation."
+    },
+    "semTexto": "Nothing written yet."
+  },
+  "editorMarkdown": {
+    "abaEscrever": "Write",
+    "abaVisualizar": "Preview",
+    "subirArquivo": "Upload file",
+    "subirDica": ".md or .txt, up to 1 MB",
+    "substituirConfirma": "The editor already has text. Replace it with the file content?",
+    "semTexto": "Nothing written yet.",
+    "barra": {
+      "titulo": "Section heading",
+      "subtitulo": "Subheading",
+      "negrito": "Bold",
+      "italico": "Italic",
+      "lista": "List",
+      "listaNumerada": "Numbered list",
+      "citacao": "Quote"
+    },
+    "erros": {
+      "arquivoGrande": "File larger than 1 MB.",
+      "arquivoTipo": "Use a .md or .txt file.",
+      "leitura": "Could not read the file."
+    },
+    "fecharApresentacao": "Close presentation"
   }
 }

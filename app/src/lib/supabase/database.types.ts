@@ -177,6 +177,27 @@ export type Database = {
         Update: { category?: Database["public"]["Enums"]["document_category"]; required?: boolean };
         Relationships: [];
       };
+      diagnoses: {
+        Row: { client_id: string | null; content_md: string; created_at: string; created_by: string; id: string; lead_id: string | null; monthly_expense: number | null; retirement_age: number | null; updated_at: string; updated_by: string | null; version: number; workspace_id: string };
+        Insert: { client_id?: string | null; content_md?: string; created_at?: string; created_by?: string; id?: string; lead_id?: string | null; monthly_expense?: number | null; retirement_age?: number | null; updated_at?: string; updated_by?: string | null; version?: number; workspace_id?: string };
+        Update: { client_id?: string | null; content_md?: string; created_at?: string; created_by?: string; id?: string; lead_id?: string | null; monthly_expense?: number | null; retirement_age?: number | null; updated_at?: string; updated_by?: string | null; version?: number; workspace_id?: string };
+        Relationships: [
+          { foreignKeyName: "diagnoses_client_id_fkey"; columns: ["client_id"]; isOneToOne: true; referencedRelation: "clients"; referencedColumns: ["id"] },
+          { foreignKeyName: "diagnoses_created_by_fkey"; columns: ["created_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
+          { foreignKeyName: "diagnoses_lead_id_fkey"; columns: ["lead_id"]; isOneToOne: true; referencedRelation: "leads"; referencedColumns: ["id"] },
+          { foreignKeyName: "diagnoses_updated_by_fkey"; columns: ["updated_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
+          { foreignKeyName: "diagnoses_workspace_id_fkey"; columns: ["workspace_id"]; isOneToOne: false; referencedRelation: "workspaces"; referencedColumns: ["id"] },
+        ];
+      };
+      diagnosis_versions: {
+        Row: { content_md: string; diagnosis_id: string; id: string; monthly_expense: number | null; retirement_age: number | null; saved_at: string; saved_by: string | null; version: number };
+        Insert: { content_md: string; diagnosis_id: string; id?: string; monthly_expense?: number | null; retirement_age?: number | null; saved_at: string; saved_by?: string | null; version: number };
+        Update: { content_md?: string; diagnosis_id?: string; id?: string; monthly_expense?: number | null; retirement_age?: number | null; saved_at?: string; saved_by?: string | null; version?: number };
+        Relationships: [
+          { foreignKeyName: "diagnosis_versions_diagnosis_id_fkey"; columns: ["diagnosis_id"]; isOneToOne: false; referencedRelation: "diagnoses"; referencedColumns: ["id"] },
+          { foreignKeyName: "diagnosis_versions_saved_by_fkey"; columns: ["saved_by"]; isOneToOne: false; referencedRelation: "profiles"; referencedColumns: ["id"] },
+        ];
+      };
       families: {
         Row: { created_at: string; created_by: string; id: string; name: string; workspace_id: string };
         Insert: { created_at?: string; created_by?: string; id?: string; name: string; workspace_id: string };
@@ -334,7 +355,7 @@ export type Database = {
     Enums: {
       client_event_type:
         | "created" | "migrated" | "converted_from_lead" | "status_changed" | "transferred" | "data_updated" | "note" | "document_uploaded"
-        | "document_deleted" | "suitability" | "lgpd_consent" | "task_done" | "meeting_scheduled" | "process_started" | "process_completed" | "family_changed" | "portfolio_snapshot" | "contribution_executed" | "report_approved" | "report_sent" | "profile_set";
+        | "document_deleted" | "suitability" | "lgpd_consent" | "task_done" | "meeting_scheduled" | "process_started" | "process_completed" | "family_changed" | "portfolio_snapshot" | "contribution_executed" | "report_approved" | "report_sent" | "profile_set" | "diagnosis_updated";
       client_status: "onboarding" | "active" | "paused" | "closed";
       asset_class: "cash" | "inflation" | "prefixed" | "multimarket" | "br_equities" | "reits" | "international" | "alternatives" | "pension";
       asset_kind: "listed" | "manual";

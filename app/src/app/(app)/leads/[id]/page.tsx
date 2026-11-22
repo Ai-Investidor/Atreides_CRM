@@ -29,6 +29,8 @@ import { obterLead } from "@/lib/leads/consultas";
 import { estaAberto, type TipoContato } from "@/lib/leads/regras";
 import { obterSessao } from "@/lib/sessao";
 import { CardTarefas } from "@/components/tarefas/card-tarefas";
+import { CardDiagnostico } from "@/components/diagnostico/card-diagnostico";
+import { obterDiagnostico } from "@/lib/diagnostico/consultas";
 import { membrosAtivos, tarefasDoLead } from "@/lib/tarefas/consultas";
 
 export const metadata: Metadata = { title: "Lead" };
@@ -52,7 +54,7 @@ export default async function LeadPage({ params }: PageProps<"/leads/[id]">) {
   if (!dados) notFound();
 
   const { lead, historico } = dados;
-  const [tarefas, membros] = await Promise.all([tarefasDoLead(lead.id), membrosAtivos()]);
+  const [tarefas, membros, diagnostico] = await Promise.all([tarefasDoLead(lead.id), membrosAtivos(), obterDiagnostico({ tipo: "lead", id: lead.id })]);
   const workspace = sessao.workspaces.find((w) => w.id === lead.workspace_id);
   const aberto = estaAberto(lead.stage);
 
@@ -107,8 +109,11 @@ export default async function LeadPage({ params }: PageProps<"/leads/[id]">) {
         {lead.stage === "won" ? <Alert tom="ok" titulo={t("ficha.ganhoTitulo")}>{t("ficha.ganhoTexto")}</Alert> : null}
 
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+          <div className="flex flex-col gap-6 xl:col-span-2">
+          <CardDiagnostico alvo={{ tipo: "lead", id: lead.id }} dados={diagnostico} nome={lead.full_name} podeEditar={aberto && !lead.client_id} />
+
           {/* Histórico */}
-          <Card className="xl:col-span-2">
+          <Card>
             <CardHeader>
               <CardTitle>{t("ficha.historico")}</CardTitle>
             </CardHeader>
@@ -144,6 +149,7 @@ export default async function LeadPage({ params }: PageProps<"/leads/[id]">) {
               </ol>
             </CardContent>
           </Card>
+          </div>
 
           {/* Lateral */}
           <div className="flex flex-col gap-6">

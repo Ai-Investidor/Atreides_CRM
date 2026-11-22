@@ -1,136 +1,106 @@
-# 14 · Diagnóstico financeiro
+# 14 · Diagnóstico
 
 ## Objetivo
 
-Entender a vida financeira do cliente antes de falar de investimentos. A consultoria do Atreides não é só de investimentos: é **planejamento financeiro**. Ela começa criando estratégias para três coisas:
+Registrar o que o cliente contou na reunião de diagnóstico: **objetivos, dores, sonhos, projetos (carro, imóvel…) e aposentadoria**. É a base do planejamento ([05](05-planejamento-financeiro.md)) e o primeiro documento que o cliente recebe da consultoria.
 
-1. **Controlar gastos**: saber para onde o dinheiro vai e cortar o que não faz sentido.
-2. **Otimizar ganhos**: organizar as fontes de renda e achar formas de aumentá-las.
-3. **Potencializar o poder de investimento**: transformar o que sobra em aporte constante.
-
-O diagnóstico mede isso e entrega um **plano de ação** que alimenta o planejamento ([05](05-planejamento-financeiro.md)).
+Reflete como o Erick trabalha hoje: ele transcreve a reunião do Meet e monta o diagnóstico em cima das dores e dos objetivos do cliente. No Atreides, o diagnóstico é um **texto em markdown**: o consultor escreve (ou sobe o arquivo que já montou) e o texto já sai com o formato da apresentação.
 
 ## Quem usa
 
-Consultores, junto com o cliente (em reunião de onboarding). Admin acompanha.
+Consultores, na fase de lead (reunião de diagnóstico) e no onboarding do cliente. Admin acompanha.
 
 ## Lugar no atendimento
 
 ```
-Onboarding → 14 Diagnóstico → 05 Planejamento → 06 Carteira → 08 Relatórios
+Lead (reunião de diagnóstico) → 14 Diagnóstico → conversão em cliente → 05 Planejamento → 06 Carteira → 08 Relatórios
 ```
-
-Nenhum planejamento é publicado sem diagnóstico concluído.
 
 ## Escopo
 
 **MVP**
-- Levantamento de rendas, gastos, dívidas e patrimônio
-- Indicadores calculados na hora
-- Identificação de oportunidades (cortes, renegociações, aumento de renda)
-- Capacidade de investimento atual × potencial
-- Plano de ação enviado ao planejamento
-- Diagnóstico individual ou do núcleo familiar
+- Um diagnóstico por lead/cliente, em markdown, que já começa com o modelo de seções
+- Editor com barra de formatação (título, negrito, itálico, lista), visualização formatada e envio de arquivo `.md` ou `.txt`
+- Dois campos estruturados: **despesa mensal** (vai para o card Marco zero da carteira) e **idade pretendida para se aposentar** (vai para o Planejamento)
+- Histórico: cada vez que o consultor salva, a versão anterior fica guardada
+- Nasce na ficha do lead e segue para o cliente na conversão, sem redigitar
+- **Modo apresentação** na tela (para mostrar na reunião) e **PDF com a identidade da Atreides**
 
-**Fase 2**
-- Importar extrato bancário ou fatura de cartão (CSV/OFX) com categorização automática dos gastos
-- Acompanhamento mensal do orçamento: planejado × realizado
-- PDF do diagnóstico para o cliente, com a identidade da marca
+**Depois** (ver [AJUSTES.md](../AJUSTES.md))
+- Levantamento numérico completo (rendas, gastos, dívidas, patrimônio, indicadores como taxa de poupança e reserva de emergência), que era o escopo original deste documento
+- Gerar o rascunho do diagnóstico a partir da transcrição da reunião com IA (exige decisão de compliance: hoje a regra do projeto é não enviar dados de clientes a serviços externos)
+
+## Modelo de seções
+
+O diagnóstico novo começa com este texto, que o consultor apaga, completa ou reorganiza:
+
+```markdown
+## Objetivos
+## Dores
+## Sonhos
+## Planejamento
+_Compras e projetos (carro, imóvel, viagem…), com valor e prazo._
+## Aposentadoria
+_Com quantos anos pretende se aposentar e com qual renda._
+```
 
 ## Fluxo
 
-### 1. Levantamento (com o cliente)
-
-| Bloco | O que registrar |
-|---|---|
-| **Rendas** | Cada fonte: salário, pró-labore, aluguel, renda extra, benefícios. Valor líquido e recorrência (mensal, anual, eventual) |
-| **Gastos** | Por categoria (moradia, alimentação, transporte, saúde, educação, lazer, assinaturas, cartão, outros; categorias confirmadas pela consultoria). Tipo: fixo, variável ou eventual. Marcar se é **essencial** |
-| **Dívidas** | Credor, saldo devedor, parcela, juros ao mês, prazo restante |
-| **Patrimônio** | Investimentos, imóveis, veículos, outros bens |
-| **Proteção** | Reserva de emergência atual; seguros existentes (vida, saúde) |
-
-O consultor pode preencher por categoria (valor total) ou detalhar item a item. Começar simples e detalhar onde importa.
-
-### 2. Indicadores (calculados pelo sistema)
-
-| Indicador | Cálculo | Referência (configurável) |
-|---|---|---|
-| Sobra mensal | Rendas − gastos − parcelas de dívidas | Positiva |
-| Taxa de poupança | Sobra ÷ renda | 20% ou mais |
-| Comprometimento com dívidas | Parcelas ÷ renda | Até 30% |
-| Gastos essenciais | Essenciais ÷ renda | Até 50% |
-| Reserva de emergência | Reserva atual ÷ gastos mensais | 6 meses (ajustável por perfil e estabilidade de renda) |
-| Dívida mais cara | Maior taxa de juros entre as dívidas | Prioridade de quitação |
-| Patrimônio líquido | Patrimônio − dívidas | — |
-
-As referências são pontos de partida configuráveis pelo admin, não regras. Cada indicador fica verde, amarelo ou vermelho em relação à referência, **sempre com texto**, não só cor.
-
-### 3. Oportunidades
-
-O consultor registra (e o sistema sugere a partir dos indicadores):
-
-- **Cortes de gastos**: ex.: assinaturas sem uso, categoria acima da referência. Com impacto mensal estimado.
-- **Dívidas**: quitar ou renegociar primeiro as de juros mais altos; trocar dívida cara por barata.
-- **Aumento de renda**: ex.: renda extra, revisão de benefícios, otimização tributária (a validar caso a caso).
-- **Proteção**: montar ou completar a reserva antes de investir com risco.
-
-### 4. Capacidade de investimento
-
-O sistema mostra lado a lado:
-
-- **Hoje:** a sobra mensal atual.
-- **Potencial:** a sobra se as oportunidades forem aplicadas (soma dos impactos mensais).
-
-Essa diferença é o ganho que a consultoria entrega antes de qualquer investimento, e um dos números mais fortes para mostrar ao cliente.
-
-### 5. Plano de ação e conclusão
-
-1. As oportunidades aprovadas com o cliente viram **ações** com meta e prazo (ex.: "Reduzir gastos com delivery para R$ 400/mês até março").
-2. O consultor conclui o diagnóstico. As ações e os números vão para o planejamento ([05](05-planejamento-financeiro.md)), bloco "Plano de ação financeiro".
-3. O diagnóstico entra na linha do tempo do cliente e libera a etapa "Montar planejamento" do onboarding ([09](09-processos-e-tarefas.md)).
-
-## Revisão
-
-O diagnóstico é refeito (como nova versão) a cada revisão de planejamento, ou antes, se a vida do cliente mudar (emprego, casamento, filho). O sistema compara as versões: a sobra aumentou? as dívidas caíram? a reserva cresceu?
-
-## Telas
-
-- **Aba Diagnóstico** na ficha do cliente, em etapas: Rendas › Gastos › Dívidas › Patrimônio › Resultado
-- **Resultado:** indicadores, gráfico de para onde vai o dinheiro (por categoria), capacidade de investimento hoje × potencial, oportunidades e plano de ação
-- **Comparativo** entre versões
+1. Na ficha do lead (etapa Diagnóstico do funil), o consultor abre o cartão **Diagnóstico** e clica em **Escrever diagnóstico**.
+2. Escreve no editor ou clica em **Subir arquivo** (`.md` ou `.txt`, até 1 MB). O conteúdo do arquivo entra no editor; se já houver texto, o sistema pergunta antes de substituir.
+3. Preenche, se souber, a despesa mensal e a idade pretendida para se aposentar.
+4. Clica em **Salvar**. A versão anterior vai para o histórico.
+5. Na conversão do lead em cliente, o diagnóstico passa para a aba **Diagnóstico** do cliente, e a etapa "Concluir o diagnóstico" do onboarding se conclui sozinha.
+6. Para apresentar: **Apresentar** abre o texto em tela cheia, com tipografia grande; **Baixar PDF** gera o documento com a marca.
+7. Cliente sem diagnóstico vindo do lead (ex.: cliente migrado) escreve direto na aba Diagnóstico.
 
 ## Regras de negócio
 
-- Diagnóstico pode ser do cliente ou do núcleo familiar (rendas e gastos somados).
-- Valores mensais: rendas e gastos anuais ou eventuais são divididos por 12 automaticamente.
-- Um diagnóstico concluído não é editado: atualizar gera nova versão.
-- Dados de gastos são sensíveis: mesmas regras de acesso e LGPD do cliente ([02](02-acesso-e-permissoes.md), [01](01-arquitetura-e-stack.md)).
-- O sistema sugere, o consultor decide: nenhuma oportunidade entra no plano sem aprovação do consultor.
+- Um diagnóstico por lead e por cliente.
+- Salvar com texto conclui a etapa "Concluir o diagnóstico" do processo do cliente.
+- Cada salvamento guarda a versão anterior (texto e campos), com data e autor. Versões antigas não são editadas.
+- Despesa mensal: valor em reais, maior ou igual a zero. Idade de aposentadoria: entre 30 e 100 anos.
+- O PDF não é guardado: é gerado na hora, a partir da versão atual.
+- O PDF e o modo apresentação nunca mostram o perfil de investidor (regra de [03](03-clientes.md)).
+- Dados sensíveis: mesmas regras de acesso e LGPD do cliente. Entra na exportação LGPD e acompanha o cliente numa transferência de workspace.
+- Lead excluído sem ter virado cliente leva o diagnóstico junto.
+- Markdown sem HTML: o texto é exibido com segurança (sem executar código colado).
 
 ## Dados
 
-- `diagnosticos`: id, cliente_id ou nucleo_familiar_id, versao, status (rascunho | concluido), totais calculados, concluido_em, concluido_por
-- `diagnostico_rendas`: id, diagnostico_id, fonte, valor, recorrencia
-- `diagnostico_gastos`: id, diagnostico_id, categoria, descricao, valor, tipo, essencial
-- `diagnostico_dividas`: id, diagnostico_id, credor, saldo, parcela, juros_mensal, prazo_meses
-- `diagnostico_patrimonio`: id, diagnostico_id, tipo, descricao, valor
-- `diagnostico_oportunidades`: id, diagnostico_id, tipo, descricao, impacto_mensal, aprovada
+- `diagnoses`: id, workspace_id, lead_id, client_id, content_md, monthly_expense, retirement_age, version, created_by, updated_by, created_at, updated_at
+- `diagnosis_versions`: id, diagnosis_id, version, content_md, monthly_expense, retirement_age, saved_by, saved_at
+
+## Integrações
+
+- **Carteira ([06](06-carteiras-e-acompanhamento.md)):** o card Marco zero mostra a despesa mensal do diagnóstico.
+- **Planejamento ([05](05-planejamento-financeiro.md)):** parte do diagnóstico (texto, despesa mensal e idade de aposentadoria).
+- **Linha do tempo:** salvar o diagnóstico do cliente gera o evento "Diagnóstico atualizado".
+
+## Implementação (22/11/2026)
+
+- **Banco:** migration `app/supabase/migrations/20261122040000_diagnostico.sql`: `diagnoses` (um por lead e por cliente) e `diagnosis_versions` (gravada só pelo banco a cada salvamento). Gatilhos: workspace, autor e versão definidos pelo banco; conversão do lead liga o diagnóstico ao cliente e conclui a etapa do onboarding; salvar no cliente gera o evento "Diagnóstico atualizado"; lead excluído sem virar cliente leva o diagnóstico; transferência de workspace inclui o diagnóstico. Etapas renomeadas para "Concluir o diagnóstico" / "Fazer o diagnóstico".
+- **Telas:** cartão Diagnóstico na ficha do lead e aba Diagnóstico do cliente (`src/components/diagnostico/card-diagnostico.tsx`): leitura formatada, editor com barra de formatação, envio de `.md`/`.txt`, visualização lado a lado (abas em telas menores), despesa mensal e idade de aposentadoria, histórico de versões e modo apresentação em tela cheia.
+- **PDF:** `src/lib/diagnostico/pdf.tsx` e rota `/api/diagnostico/[id]/pdf` (gerado na hora, não guardado), com a identidade compartilhada com os relatórios em `src/lib/pdf/marca.tsx`.
+- **Integrações:** card Marco zero da carteira mostra a despesa mensal; exportação LGPD do cliente inclui o diagnóstico e as versões.
+- **Pendente:** teste das regras no banco (o teste automático com cliente e lead fictícios foi bloqueado pelo filtro de segurança) e teste logado.
 
 ## Critérios de aceite
 
-- [ ] Levantamento de rendas, gastos, dívidas e patrimônio, por categoria ou item a item
-- [ ] Indicadores calculados na hora, com status em texto e cor
-- [ ] Capacidade de investimento hoje × potencial
-- [ ] Oportunidades aprovadas viram ações no planejamento, sem redigitar
-- [ ] Planejamento bloqueado até o diagnóstico ser concluído
-- [ ] Diagnóstico individual ou familiar; versões comparáveis
+- [x] Editor de markdown com modelo de seções, visualização formatada e envio de `.md`/`.txt`
+- [x] Despesa mensal e idade de aposentadoria salvas e validadas
+- [ ] Diagnóstico escrito no lead aparece no cliente após a conversão, com a etapa do onboarding concluída
+- [x] Histórico de versões
+- [x] Modo apresentação e PDF com a identidade da marca
+- [x] Marco zero da carteira mostra a despesa mensal
 
 ## Perguntas em aberto
 
-1. As referências dos indicadores (20% de poupança, 30% de dívidas, 50% de essenciais, 6 meses de reserva) batem com o método da consultoria?
-2. O diagnóstico deve virar um documento (PDF) entregue ao cliente já no MVP, ou só no fim do onboarding junto com o planejamento?
+Nenhuma no momento.
 
 ## Histórico de decisões
 
 - 21/11/2026: documento criado a partir da orientação: a consultoria começa pelo planejamento financeiro (controle de gastos, otimização de ganhos, potencial de investimento).
 - 21/11/2026: categorias de gasto confirmadas; batem com o método da consultoria.
+- 22/11/2026: redefinido a partir do método do Erick (transcrição da reunião + diagnóstico sobre dores e objetivos). O diagnóstico vira um texto em markdown com modelo de seções (objetivos, dores, sonhos, planejamento, aposentadoria), mais despesa mensal e idade de aposentadoria; nasce no lead e segue para o cliente; histórico de versões; modo apresentação e PDF com a marca. O levantamento numérico completo e a geração com IA ficam para depois. As perguntas em aberto anteriores (referências dos indicadores, PDF no MVP) deixam de se aplicar ou foram resolvidas (PDF entra).
+- 22/11/2026: implementado (banco, editor, apresentação, PDF, histórico, ligação com lead, cliente, onboarding e carteira).

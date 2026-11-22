@@ -973,7 +973,8 @@
         "contribution_executed": "Aporte executado",
         "report_approved": "Relatório aprovado",
         "report_sent": "Relatório enviado ao cliente",
-        "profile_set": "Perfil de investidor registrado: {perfil} ({corretora})"
+        "profile_set": "Perfil de investidor registrado: {perfil} ({corretora})",
+        "diagnosis_updated": "Diagnóstico atualizado (versão {versao})"
       }
     },
     "documentos": {
@@ -1186,7 +1187,7 @@
       "renda": "Renda mensal",
       "rendaFonte": "da ficha do cliente",
       "despesa": "Despesa mensal",
-      "despesaFonte": "virá do Diagnóstico financeiro",
+      "despesaFonte": "Do Diagnóstico do cliente.",
       "evolucaoDica": "variação total, inclui aportes",
       "cdi": "CDI no mesmo período",
       "ipca": "IPCA no mesmo período",
@@ -1714,5 +1715,81 @@
         "periodo": "Período inválido."
       }
     }
+  },
+  "diagnostico": {
+    "titulo": "Diagnóstico",
+    "descricao": "Objetivos, dores, sonhos, projetos e aposentadoria, conversados na reunião de diagnóstico.",
+    "descricaoLead": "Escreva aqui o diagnóstico da reunião com o lead. Na conversão, ele passa para o cliente.",
+    "escrever": "Escrever diagnóstico",
+    "editar": "Editar",
+    "apresentar": "Apresentar",
+    "baixarPdf": "Baixar PDF",
+    "historico": "Histórico",
+    "versaoAtual": "Versão {versao} · salva em {data} por {nome}",
+    "vazioTitulo": "Diagnóstico ainda não escrito",
+    "vazioDescricao": "Escreva a partir da reunião ou suba o arquivo que você já montou (.md ou .txt).",
+    "despesa": "Despesa mensal",
+    "despesaDica": "Em reais. Aparece no card Marco zero da carteira.",
+    "aposentadoria": "Idade para se aposentar",
+    "aposentadoriaDica": "Idade pretendida pelo cliente, entre 30 e 100 anos.",
+    "anos": "{idade} anos",
+    "salvar": "Salvar",
+    "cancelar": "Cancelar",
+    "markdownDica": "Use ## para títulos, **negrito**, _itálico_ e - para listas. A visualização mostra como fica na apresentação e no PDF.",
+    "versoes": {
+      "titulo": "Versões anteriores",
+      "descricao": "Cada vez que o diagnóstico é salvo, a versão anterior fica guardada aqui.",
+      "versao": "Versão {versao}",
+      "salvaEm": "Salva em {data} por {nome}",
+      "ver": "Ver",
+      "vazio": "Nenhuma versão anterior.",
+      "fechar": "Fechar"
+    },
+    "apresentacao": {
+      "sobre": "Diagnóstico"
+    },
+    "erros": {
+      "textoLongo": "Texto muito longo (até 100 mil caracteres).",
+      "despesa": "Informe um valor em reais, igual ou maior que zero.",
+      "idade": "Informe uma idade inteira entre 30 e 100 anos.",
+      "sessao": "Sua sessão expirou. Entre de novo.",
+      "salvar": "Não foi possível salvar. Tente novamente.",
+      "permissao": "Você não tem permissão para esta ação.",
+      "naoEncontrado": "Versão não encontrada."
+    },
+    "pdf": {
+      "tituloDoc": "Diagnóstico · {nome}",
+      "capaSobre": "Diagnóstico",
+      "capaFrase": "Objetivos, prioridades e o ponto de partida do planejamento.",
+      "cabecalho": "Diagnóstico · {nome}",
+      "despesa": "Despesa mensal",
+      "aposentadoria": "Aposentadoria pretendida",
+      "aposentadoriaValor": "aos {idade} anos",
+      "aviso": "Documento elaborado a partir das informações fornecidas pelo cliente nas reuniões com a consultoria. Não constitui oferta nem recomendação de investimento."
+    },
+    "semTexto": "Nada escrito ainda."
+  },
+  "editorMarkdown": {
+    "abaEscrever": "Escrever",
+    "abaVisualizar": "Visualizar",
+    "subirArquivo": "Subir arquivo",
+    "subirDica": ".md ou .txt, até 1 MB",
+    "substituirConfirma": "O editor já tem texto. Substituir pelo conteúdo do arquivo?",
+    "semTexto": "Nada escrito ainda.",
+    "barra": {
+      "titulo": "Título de seção",
+      "subtitulo": "Subtítulo",
+      "negrito": "Negrito",
+      "italico": "Itálico",
+      "lista": "Lista",
+      "listaNumerada": "Lista numerada",
+      "citacao": "Citação"
+    },
+    "erros": {
+      "arquivoGrande": "Arquivo maior que 1 MB.",
+      "arquivoTipo": "Use um arquivo .md ou .txt.",
+      "leitura": "Não foi possível ler o arquivo."
+    },
+    "fecharApresentacao": "Fechar apresentação"
   }
 }

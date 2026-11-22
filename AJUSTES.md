@@ -13,7 +13,9 @@ Lista do que precisa ser ajustado, revisado ou completado depois que todos os fl
 
 ## Clientes e carteira
 
-- [ ] **Despesa mensal do cliente.** Decidido que não entra num formulário solto da carteira: vem do Diagnóstico financeiro (doc 14). Quando o diagnóstico existir, ligar o card "Marco zero" da carteira à despesa do diagnóstico.
+- [x] **Despesa mensal do cliente** (22/11/2026): vem do campo "despesa mensal" do Diagnóstico (doc 14) e aparece no card Marco zero.
+- [ ] **Diagnóstico numérico completo:** levantamento de rendas, gastos, dívidas e patrimônio, com indicadores (taxa de poupança, comprometimento com dívidas, reserva de emergência), que era o escopo original do doc 14. Hoje o diagnóstico é texto em markdown + despesa mensal + idade de aposentadoria.
+- [ ] **Diagnóstico a partir da transcrição com IA:** subir a transcrição do Meet e gerar o rascunho do diagnóstico. Antes, decidir com compliance o envio de dados de clientes a um serviço de IA (hoje a regra do projeto proíbe enviar dados de clientes a serviços externos; o Erick já faz isso fora do sistema).
 - [ ] **Patrimônio sob consultoria no núcleo familiar.** Hoje o núcleo soma o patrimônio declarado. Trocar pela soma das carteiras quando todos os membros tiverem carteira.
 - [ ] **Importação da carteira dos clientes do Erick.** O Atreides importa planilha no modelo dele. Quando o Erick enviar um arquivo exportado do Investidor10 (se o Investidor10 exportar), adaptar o leitor para esse formato.
 - [ ] **Importação de extratos das corretoras** (fase 2 da carteira): Rico, XP, BTG, Inter, Nubank. Falta definir a ordem de prioridade.
